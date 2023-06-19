@@ -10,7 +10,7 @@ const svgCaptcha = require('svg-captcha');
 const cacheControl = require('cache-control');
 const connectMongoDbSession = require('connect-mongodb-session');
 const sharp = require('sharp');
-const connectDatabase = require('./config/database');
+const connectDatabase = require('../backend/config/database.js');
 const dotenv = require('dotenv');
 dotenv.config({path:path.join(__dirname,"config/config.env")});
 
