@@ -5,7 +5,7 @@ const productController = require('../controllers/productcontroller');
 const multer = require('multer');
 const { route } = require('./productpageroute');
 
-const upload = multer({ dest: '/backend/uploads/' });
+const upload = multer({ dest: 'backend/uploads/' });
 const goToLoginIfNotAuth1 = (req, res, next) => {
     if (req.session.adminloggedIn) {
         next()

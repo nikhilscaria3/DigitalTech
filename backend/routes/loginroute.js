@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
 // const loginController = require('../controllers/logincontroller');
-const multer = require('multer');
 const adminController = require('../controllers/adminlogincontroller');
 
-const nocache = require('nocache');
-const profilecontroller = require('../controllers/profilecontroller');
 
 // // Route for getting all birds
 // router.get('/login', loginController.getUser);
@@ -14,9 +11,6 @@ const profilecontroller = require('../controllers/profilecontroller');
 // router.post('/login', loginController.postUser);
 
 const{ getUser, postUser, resendOTP} = require('../controllers/logincontroller');
-
-const { route } = require('./productpageroute');
-
 
 
 const setUserId = (req, res, next) => {

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const editcontroller = require('../controllers/editcontroller');
-const upload = multer({ dest: '/backend/uploads/' });
+const upload = multer({ dest: 'backend/uploads/' });
 const goToLoginIfNotAuth1 = (req, res, next) => {
     if (req.session.adminloggedIn) {
         next()
