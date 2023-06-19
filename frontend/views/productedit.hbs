@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/course.css">
+
+    <title>AdminHub</title>
+</head>
+
+<body>
+    <style>
+        .dark {
+            color: white;
+        }
+    </style>
+
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">AdminPortal</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="/admin" class="">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text cart-link">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/product">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text cart-link">Product</span>
+                </a>
+            </li>
+            <li>
+                <a href="/users">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text cart-link">Customers</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/adminorder">
+                    <i class='bx bxs-message-dots'></i>
+                    <span class="text cart-link">Order</span>
+                </a>
+            </li>
+            <li>
+                <a href="/sale-reports">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="/transactions">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Transactions</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/couponadmin">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Coupons</span>
+                </a>
+            </li>
+            <li>
+                <a href="/create-banner">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Banner</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <i class='bx bxs-cog'></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="/signout" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <a href="/category" class="nav-link">Categories</a>
+            <form>
+                <div class="form-input">
+                    <input class="form-control me-2" type="search" placeholder="Search" id="search-input"
+                        aria-label="Search">
+                    <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="/productadd">Add</a>
+        </nav>
+
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <a href="/productadd">Add Product</a><br>
+            <form action="/productedit" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input type="hidden" id="id" name="id" value="{{ editdata._id }}">
+                </div>
+
+                <div class="form-group">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="text" data-bs-toggle="dropdown" aria-expanded="false">
+                            <label for="type">Category</label>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item rounded" href="#" data-category="Smartphones">Smartphone</a>
+                            </li>
+                            <li><a class="dropdown-item rounded" href="#" data-category="Laptops">Laptops</a></li>
+                            <li><a class="dropdown-item rounded" href="#" data-category="Headphones">Headphones</a></li>
+                            <li><a class="dropdown-item rounded" href="#" data-category="">No Choice</a></li>
+                        </ul>
+                    </div>
+                    <input type="text" class="form-control form-control-color" id="category"
+                        value="{{ editdata.category }}" name="category">
+                </div>
+
+                <div class="mb-3">
+                    <label for="type">Product Name:</label>
+                    <input type="text" id="duration" name="productname" value="{{ editdata.productname }}" required><br>
+                </div>
+                <div class="mb-3">
+                    <label for="link">Product Price:</label>
+                    <input type="text" id="link" name="productprice" value="{{ editdata.productprice }}" required><br>
+                </div>
+                <div class="mb-3">
+                    <label for="category">Sale Price:</label>
+                    <input type="text" id="link" name="saleprice" value="{{ editdata.saleprice }}" required><br>
+                </div>
+                <div class="mb-3">
+                    <label for="category">Stock:</label>
+                    <input type="text" id="link" name="stock" value="{{ editdata.stock }}" required><br>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3"
+                        required>{{ editdata.description }}</textarea><br>
+                </div>
+                <div class="form-group">
+                    <label for="stock" class="form-label">Payment Option:</label>
+                    <input type="text" class="form-control form-control-color" value="{{ editdata.paymentoption }}"
+                        id="stock" name="paymentoption">
+                </div>
+                <div class="form-group">
+                    <label for="stock" class="form-label">Rating:</label>
+                    <input type="text" class="form-control form-control-color" value="{{ editdata.rating }}" id="stock"
+                        name="rating">
+                </div>
+
+                <div class="form-group">
+                    <label for="photo" class="form-label">Image:</label>
+                    <input type="file" name="photos" id="photos" value="{{editdata.filepath}}" accept="image/*"
+                        multiple>
+                </div>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+
+
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm Delete</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Are you sure want to delete ?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="" class="btn btn-danger" id="confirm-delete-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {{!--
+
+            <table id="example" class="table table-dark table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Product</th>
+                        <th>description</th>
+                        <th>saleprice</th>
+                        <th>productprice</th>
+                        <th>stock</th>
+                        <th>img</th>
+                        <th>Action</th>
+                        <th>Action</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each product}}
+                    <tr>
+                        <td>{{this.category}}</td>
+                        <td>{{this.productname}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.saleprice}}</td>
+                        <td>{{this.productprice}}</td>
+                        <td>{{this.stock}}</td>
+                        <td> <img src="/uploads/{{this.images.[0].filepath}}" alt="{{this.images.[0].title}}"
+                                style="width: 4rem;"></td>
+                        <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                                <a href="/productedit?edit_id={{this._id}}">Update</a>
+                            </button></td>
+                        <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                                <a href="/productedit?delete_id={{this._id}}" data-delete>Delete</a>
+                            </button> </td>
+
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table> --}}
+
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+
+    <script>
+        // Get the category dropdown items
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        // Attach click event listeners to each dropdown item
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                const category = this.dataset.category; // Get the category from the data attribute
+                const categoryInput = document.getElementById('category'); // Get the category input field
+
+                categoryInput.value = category; // Update the input field value with the selected category
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+
+
+
+        // TOGGLE SIDEBAR
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+        })
+
+
+
+        if (window.innerWidth < 768) {
+            sidebar.classList.add('hide');
+        } else if (window.innerWidth > 576) {
+            searchButtonIcon.classList.replace('bx-x', 'bx-search');
+            searchForm.classList.remove('show');
+        }
+
+
+        window.addEventListener('resize', function () {
+            if (this.innerWidth > 576) {
+                searchButtonIcon.classList.replace('bx-x', 'bx-search');
+                searchForm.classList.remove('show');
+            }
+        })
+    </script>
+
+    <script>
+        const switchMode = document.getElementById('switch-mode');
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const switchMode = document.getElementById('switch-mode');
+
+            switchMode.addEventListener('change', function () {
+                if (this.checked) {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
+            });
+        });
+
+        const myModal = document.getElementById('myModal')
+        const myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+        })
+    </script>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Handle delete button click
+            var deleteButtons = document.querySelectorAll('a[data-delete]');
+            for (var i = 0; i < deleteButtons.length; i++) {
+                deleteButtons[i].addEventListener('click', function (event) {
+                    event.preventDefault(); var url = this.getAttribute('href'); // Set the URL for the delete button in the modal
+                    document.querySelector('#confirm-delete-btn').setAttribute('href', url); // Show the modal var
+                    confirmDeleteModal = document.querySelector('#confirm-delete-modal');
+                    confirmDeleteModal.classList.add('show'); confirmDeleteModal.style.display = 'block'; var
+                        modalBackdrop = document.createElement('div'); modalBackdrop.classList.add('modal-backdrop', 'fade', 'show'
+                        ); document.body.appendChild(modalBackdrop);
+                });
+            }
+        }); $('#example').on('click', '.btn-primary', function
+            () { // Get the row data from the clicked button const $row=$(this).closest('tr'); const
+            userName = $row.find('td:eq(0)').text(); const fName = $row.find('td:eq(1)').text(); const
+                lName = $row.find('td:eq(2)').text(); const email = $row.find('td:eq(4)').text(); const
+                    psswd = $row.find('td:eq(5)').text(); // Set the values of the input fields in the modal
+            $('#username').val(userName); $('#fname').val(fName); $('#lname').val(lName); $('#email').val(email);
+            $('#password').val(psswd); // Show the modal $('#updateModal').modal('show'); }); 
+    </script>
+
+    <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Handle delete button click
+                var deleteButtons = document.querySelectorAll('a[data-delete]');
+                for (var i = 0; i < deleteButtons.length; i++) {
+                    deleteButtons[i].addEventListener('click', function (event) {
+                        event.preventDefault();
+                        var url = this.getAttribute('href');
+
+                        // Set the URL for the delete button in the modal
+                        document.querySelector('#confirm-delete-btn').setAttribute('href', url);
+
+                        // Show the modal
+                        var confirmDeleteModal = document.querySelector('#confirm-delete-modal');
+                        confirmDeleteModal.classList.add('show');
+                        confirmDeleteModal.style.display = 'block';
+                        var modalBackdrop = document.createElement('div');
+                        modalBackdrop.classList.add('modal-backdrop', 'fade', 'show');
+                        document.body.appendChild(modalBackdrop);
+                    });
+                }
+            });
+    </script>
+
+</body>
+
+</html>

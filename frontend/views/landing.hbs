@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HomePage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {{!--
+    <link href="/styles/bootstrap.css" rel="stylesheet"> - --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Duru+Sans|Actor' rel='stylesheet' type='text/css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <!--Bootshape-->
+
+    <link href="/styles/landingpage.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <style>
+        .row {
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+
+        .col {
+            width: 48rem;
+            line-height: 27px;
+            margin-left: 4rem
+        }
+
+        .section3 {
+            /* Add desired styles for the section */
+        }
+
+        .section3-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Add desired styles for the section header */
+        }
+
+        .discount-card {
+            /* Add desired styles for the discount card container */
+        }
+
+
+        .product-container {
+            display: flex;
+            align-items: flex-start;
+
+        }
+
+        .product-card {
+            margin-left: 7rem;
+        }
+
+        .fixed-image {
+
+            width: 150px;
+            height: 200px;
+            object-fit: scale-down;
+
+        }
+
+        .card-img-top {
+            width: 14rem;
+            height: 200px;
+            justify-content: center;
+            align-items: center;
+            margin-left: 6rem;
+
+        }
+
+        #loginFormContainer {
+            display: none;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .loginBox {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            width: 27rem;
+            margin-top: 2rem;
+        }
+
+        .loginBox form .form-group {
+            margin-bottom: 10px;
+        }
+
+        .loginBox form label {
+            display: block;
+            font-weight: bold;
+        }
+
+
+        .loginForm,
+        .otpForm {
+            display: none;
+        }
+
+        input {
+            width: 25rem;
+        }
+
+        .cart-link {
+            position: relative;
+        }
+
+        .cart-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cart-link:hover::after {
+            transform: scaleX(1);
+        }
+
+
+        .img-fluid {
+            --c: #1231cd;
+            /* the border color */
+            --b: 2px;
+            /* the border thickness*/
+            --g: 5px;
+            /* the gap on hover */
+
+            padding: calc(var(--g) + var(--b));
+            --_g: #0000 25%, var(--c) 0;
+            background:
+                conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) var(--_i, 200%) 0 /200% var(--_i, var(--b)) no-repeat,
+                conic-gradient(at bottom var(--b) left var(--b), var(--_g)) 0 var(--_i, 200%)/var(--_i, var(--b)) 200% no-repeat;
+            transition: .3s, background-position .3s .3s;
+            cursor: pointer;
+        }
+
+        .img-fluid:hover {
+            --_i: 100%;
+            transition: .3s, background-size .3s .3s;
+        }
+
+        h1 {
+            font-family: cursive;
+            font-size: 28px;
+            text-align: center;
+            text-transform: uppercase;
+            text-rendering: optimizeLegibility;
+
+        }
+
+        .deepshadow {
+            color: #2c2c2c;
+            letter-spacing: .05em;
+            text-shadow: 2px 2px 0px #d5d5d5, 4px 4px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-dialog {
+            max-width: 800px;
+        }
+    </style>
+    <style>
+
+    </style>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <a class="navbar-brand" href="#">
+            <img src="/image/Gold Luxury Initial Circle Logo (1).png" alt="Logo" width="30" height="24"
+                class="d-inline-block align-text-top">
+            Digital Tech
+        </a>
+        <div class="container">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-lg-0">
+                    <li class="nav-item">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <li>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+                        <a href="/login" class="btn btn-primary">Login</a>
+                        {{!-- <a href="/landing" id="loginBtn" class="btn btn-primary">Login</a> --}}
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <ul class="navbar-nav  mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Account
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item cart-link" href="/cart">Cart</a></li>
+
+                    <li><a class="dropdown-item cart-link" href="/orderhistory">Order History</a></li>
+                    <li><a class="dropdown-item cart-link" href="/address">Address</a></li>
+                    <li><a class="dropdown-item cart-link" href="/wishlist">Wishlist</a></li>
+                    <li><a class="dropdown-item cart-link" href="/profile">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:0rem">
+                    <div class="container mainlogin" id="container">
+                        <div class="form-container sign-up-container">
+                        </div>
+                        <div class="form-container sign-in-container">
+                            <form action="/login" method="post">
+                                <h1>Sign in</h1>
+                                <div class="social-container">
+                                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                                <span>or use your account</span>
+                                <label for="name" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email" name="email"
+                                    onkeyup="validateEmail()">
+                                <span id="email-error"></span><br>
+
+                                <button style="border-radius: 2rem;" type="submit">Sign In</button>
+                                <a href="/forgot">Forgot
+                                    Password ?</a>
+                            </form>
+                        </div>
+                        <div class="overlay-container">
+                            <div class="overlay">
+                                <div class="overlay-panel overlay-left">
+                                    <h1>Welcome Back!</h1>
+                                    <p>To keep connected with us please login with your personal info</p>
+                                    <button class="ghost" id="signIn">Sign In</button>
+                                </div>
+                                <div class="overlay-panel overlay-right">
+                                    <h1>Hello, Friend!</h1>
+                                    <p>Enter your personal details and start journey with us</p>
+                                    <a href="/register"> <button class="ghost" style="border-radius: 2rem;"
+                                            id="signUp">Sign Up</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="box">
+                    <img src="/image/banner_16728852160dff2b86896b25756c0a876424c3d928.jpeg" class="d-block w-100"
+                        alt="...">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="box">
+                    <img src="/image/banner2_16826500885cd6c50e2ef05b0243a05c5d4611c593.jpeg" class="d-block w-100"
+                        alt="...">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="box">
+                    <img src="/image/banner3.webp" class="d-block w-100" alt="...">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!-- Content -->
+
+    <div class="section3-header">
+        <span class="title">BASED ON YOUR INTEREST</span>
+        <a href="/smartphone" class="btn1 viewmore">View More</a>
+        <button class="next" onclick='scrollright()'><i class="fa fa-angle-right"></i></button>
+        <button class="previous" onclick='scrollleft()'><i class="fa fa-angle-left"></i></button>
+    </div>
+
+    <section class="section3" id="section3">
+        <div class="discount-card">
+            <div class="product-container">
+                {{#each product}}
+                <div class="product-card">
+                    <a href="/productpage/{{this._id}}"><img src="/uploads/{{this.image.filepath}}"
+                            alt="{{this.image.title}}" class="fixed-image">
+                    </a>
+                    <a href="/homepage/{{this._id}}" class="like-button"><i class="fa fa-heart-o"></i></a>
+                    <div class="product-info">
+                        <a href="/productpage/{{this._id}}" class="title">{{this.productname}}</a>
+                        <div class="rating">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            {{this.rating}}
+                        </div>
+                        <div class="price">
+                            <span class="original-price"><strike><i
+                                        class="fa fa-rupee"></i>{{this.productprice}}</strike></span>
+                            <span class="discounted-price"><i class="fa fa-rupee"></i>{{this.saleprice}}</span>
+
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="container py-5">
+        <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="deepshadow">Categories Of The Month</h1>
+                <p>
+                    Best Quality Products
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4 p-5 mt-3 dropdown-item cart-link1">
+                <a href="/smartphone"><img
+                        src="image/Xiaomi-11-Prime-5G-Smart-Phone-493178796-i-1-1200Wx1200H-300Wx300H.jpeg"
+                        class=" img-fluid border"></a>
+                <h2 class="h5 text-center mt-3 mb-3">Smartphones</h2>
+                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+            </div>
+            <div class="col-12 col-md-4 p-5 mt-3 dropdown-item cart-link1">
+                <a href="/laptop"><img src="image/Apple-MGN63HNA-Laptops-491946461-i-1-1200Wx1200H-300Wx300H.jpeg"
+                        class=" img-fluid border"></a>
+                <h2 class="h5 text-center mt-3 mb-3">Laptops</h2>
+                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+            </div>
+            <div class="col-12 col-md-4 p-5 mt-3 dropdown-item cart-link1">
+                <a href="#"><img
+                        src="image/ZEBRONICS-Zeb-PARADISEBEIGE-BTSTEREOHEADPHONE-492573074-i-1-1200Wx1200H-300Wx300H.jpeg"
+                        class="img-fluid border"></a>
+                <h2 class="h5 text-center mt-3 mb-3">Headphones</h2>
+                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start Featured Product -->
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Featured Product</h1>
+                    <p>
+                        Smartphones
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="image/Samsung-S23Ultraa-493665084-i-1-1200Wx1200H-300Wx300H.jpeg"
+                                class="card-img-top" style="width: 12rem;" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">Rs.1,19,999</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">S23 Ultra 100x
+                                Zoom</a>
+                            <p class="card-text">
+                                Premium Smartphone | Periscope Lens | 100x Zoom
+                            </p>
+                            <p class="text-muted">Reviews (24)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="image/Apple-iPhone-14-Pro-Max-Mobile-Phone-493177798-i-1-1200Wx1200H-300Wx300H.jpeg"
+                                class="card-img-top" style="width: 12rem;" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">Rs1,29,999</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Iphone 14 Pro
+                                Max</a>
+                            <p class="card-text">
+                                Top Notch | Premium | M2 Chip | Fast Segment
+                            </p>
+                            <p class="text-muted">Reviews (48)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="image/OnePlus-11-Mobile-Phone-493665043-i-1-1200Wx1200H-300Wx300H.jpeg"
+                                class="card-img-top" style="width: 12rem;" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">Rs.89000</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark"> OnePlus 11R 5G
+                            </a>
+                            <p class="card-text">
+                                Sony IMX890|8GB/16GB LPDDR5X
+
+
+                            </p>
+                            <p class="text-muted">Reviews (74)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Product -->
+
+
+    <!-- Start Featured Product -->
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Featured Product</h1>
+                    <p>Laptops</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="/image/91zVSkGGZbS._AC_UY218_.jpg" class="card-img-top " alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$240.00</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Realme SlimBook</a>
+                            <p class="card-text">realme Book(Slim) Intel Evo Core i5 11th Gen - (8 GB/512 GB
+                                SSD/Windows
+                                10 Home) RMNB1002 Thin and Light Laptop (14 inch, Real Blue, 1.38 kg, With MS
+                                Office).
+                            </p>
+                            <p class="text-muted">Reviews (24)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="/image/81WTprMJDRL._AC_UY218_.jpg" class="card-img-top " alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$480.00</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Infinix INBook
+                                X1</a>
+                            <p class="card-text">Infinix INBook X1 XL11 Laptop (10th Gen Core i3/ 8GB/ 256GB SSD)
+                                RMNB1002 Thin and Light Laptop (14 inch, Real Blue, 1.38 kg, With MS Office).</p>
+                            <p class="text-muted">Reviews (48)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="/image/31uLEZHhMDL._AC_UY218_.jpg" class="card-img-top " alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$360.00</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark"> ASUS Vivobook 15X
+                                OLED
+                            </a>
+                            <p class="card-text">
+                                ASUS Vivobook 15X OLED (M3504) · Windows 11 Home - ASUS recommends Windows 11 Pro
+                                for
+                                business · Up to AMD Ryzen™ 7 7730U processor
+                            </p>
+                            <p class="text-muted">Reviews (74)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Product -->
+
+
+    <!-- Start Featured Product -->
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Featured Product</h1>
+                    <p>Headphones</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="image/4.jpeg" class="card-img-top" style="width: 12rem;" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$240.00</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark"> Zeb-Thunder</a>
+                            <p class="card-text">
+                                Connector Type: Bluetooth 4.2
+                                Colour: Red
+                                Headphones form factor: Over Ear
+                            </p>
+                            <p class="text-muted">Reviews (24)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="image/5.webp" class="card-img-top " alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$480.00</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Wings Vader 100
+                                Wired
+                                Gaming Headset</a>
+                            <p class="card-text">
+                                Wings Vader 100 Wired Gaming Headset (3D Surround Sound, Over Ear, Black/Red)
+                            </p>
+                            <p class="text-muted">Reviews (48)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="image/6.jpeg" class="card-img-top " alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$360.00</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Zeb-Duke
+                            </a>
+                            <p class="card-text">
+                                Product Type: Wireless Headphones
+                                Microphone Impedance: 2.2k Ohms
+                                Wireless range: 10 meters
+                            </p>
+                            <p class="text-muted">Reviews (74)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Product -->
+    <!-- Start Footer -->
+
+    <section class="section6">
+        <table>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    <span class="title">Download Digital Tech App Now</span>
+                    <span class="sub-title">Fast, Simple & Delightful. All it takes is 15 seconds to
+                        Download.</span>
+                    <a href="#" class="w-12 btn1"><i class="fa fa-android"></i> DOWNLOAD</a>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+
+
+    <footer>
+        <div class="footer">
+            <ul>
+                <li>Digital Tech</li>
+                <li>
+                    <select>
+                        <option value="english">English</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="deutsch">Deutsch</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="portuguese">Portuguese</option>
+                        <option value="spanish">Spanish</option>
+                    </select>
+                </li>
+                <li>
+                    <select>
+                        <option value="Dollar">USD: US-Dollar</option>
+                    </select>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="title">OTHER LINKS</li>
+                <li>Contact Us</li>
+                <li>Privacy Policy</li>
+                <li>Terms & Conditions</li>
+                <li>Tickets</li>
+                <li>Customer Service</li>
+                <li>Our App</li>
+            </ul>
+
+            <ul>
+                <li class="title">SHORTCUT</li>
+                <li>Electronics</li>
+                <li>Men & Women</li>
+                <li>House Hold</li>
+                <li>Sport & Fitness</li>
+                <li>Books</li>
+                <li>Kids Corner</li>
+            </ul>
+
+            <ul>
+                <li class="title">LET HELP YOU</li>
+                <li>Covid-19</li>
+                <li>Your Account</li>
+                <li>Shipping Rates</li>
+                <li>Replacement</li>
+                <li>Help</li>
+                <li>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-youtube"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="sub-footer">
+
+        </div>
+    </footer>
+
+
+
+
+    <!--ADDITIONAL-->
+    <div id="id01" class="modal">
+
+        <section class="modal-content animate" action="/action_page.php" method="post">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
+            </div>
+        </section>
+    </div>
+
+
+
+
+
+
+    <script src="https://kit.fontawesome.com/74dae4b90e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

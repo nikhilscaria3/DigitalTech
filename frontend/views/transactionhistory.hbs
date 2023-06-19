@@ -1,0 +1,194 @@
+<!-- transactionhistory.hbs -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Transaction History</title>
+  <!-- Add Bootstrap CSS CDN link here -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <!-- Boxicons -->
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <!-- My CSS -->
+  <!--Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Duru+Sans|Actor' rel='stylesheet' type='text/css'>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+  <!--Bootshape-->
+  <link rel="stylesheet" href="/styles/admin.css">
+  <link rel="stylesheet" href="/styles/course.css">
+</head>
+
+<body>
+
+<style>
+     .cart-link {
+            position: relative;
+        }
+
+        .cart-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cart-link:hover::after {
+            transform: scaleX(1);
+        }
+</style>
+  <section id="sidebar">
+    <a href="#" class="brand">
+      <i class='bx bxs-smile'></i>
+      <span class="text">AdminPortal</span>
+    </a>
+    <ul class="side-menu top">
+      <li>
+        <a href="/admin" class="">
+          <i class='bx bxs-dashboard'></i>
+          <span class="text cart-link">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/product">
+          <i class='bx bxs-shopping-bag-alt'></i>
+          <span class="text cart-link">Product</span>
+        </a>
+      </li>
+      <li>
+        <a href="/users">
+          <i class='bx bxs-doughnut-chart'></i>
+          <span class="text cart-link">Customers</span>
+        </a>
+      </li>
+      <li>
+        <a href="/adminorder">
+          <i class='bx bxs-message-dots'></i>
+          <span class="text cart-link">Order</span>
+        </a>
+      </li>
+      <li>
+        <a href="/sale-reports">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Reports</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="/transactions">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Transactions</span>
+        </a>
+      </li>
+      <li>
+        <a href="/couponadmin">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Coupons</span>
+        </a>
+      </li>
+      <li>
+        <a href="/create-banner">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Banner</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="side-menu">
+      <li>
+        <a href="#">
+          <i class='bx bxs-cog'></i>
+          <span class="text cart-link">Settings</span>
+        </a>
+      </li>
+      <li>
+        <a href="/signout" class="logout">
+          <i class='bx bxs-log-out-circle'></i>
+          <span class="text cart-link">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <!-- SIDEBAR -->
+
+
+
+  <!-- CONTENT -->
+  <section id="content">
+    <!-- NAVBAR -->
+    <nav>
+      <i class='bx bx-menu'></i>
+      <a href="/category" class="nav-link">Categories</a>
+      <form action="#">
+        <div class="form-input">
+          <input type="search" placeholder="Search...">
+          <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+        </div>
+      </form>
+      <input type="checkbox" id="switch-mode" hidden>
+      <label for="switch-mode" class="switch-mode"></label>
+      <a href="#" class="notification">
+        <i class='bx bxs-bell'></i>
+        <span class="num">8</span>
+      </a>
+      <a href="#" class="profile">
+        <img src="img/people.png">
+      </a>
+    </nav>
+    <!-- NAVBAR -->
+
+    <div class="container">
+      <h1 class="mt-4 mb-4">Transaction History</h1>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Payment ID</th>
+            <th>Razorpay Order ID</th>
+            <th>Amount</th>
+            <th>Email</th>
+            <th>Contact</th>
+
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each transactions}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.order_id}}</td>
+            <td>{{this.amount}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.contact}}</td>
+
+            <td>{{this.status}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+
+    </div>
+    <!-- Add Bootstrap JS CDN link here -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add a script block at the end to define the 'formatDate' helper -->
+    <script>
+      function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date(dateString).toLocaleString(undefined, options);
+      }
+
+      // Register the 'formatDate' helper function with Handlebars
+      Handlebars.registerHelper('formatDate', formatDate);
+    </script>
+</body>
+
+</html>

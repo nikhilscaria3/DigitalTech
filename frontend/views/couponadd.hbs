@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coupon Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Boxicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-WmokTvQ4MNAYTBgyOUPFrS8cPGoCjZpaqFjZmzbs89BBrO2CXzjNoDvi3dKkScgc9YOAV1O4uZgBm9sg0dNmyA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <!-- My CSS -->
+  <!--Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Duru+Sans|Actor' rel='stylesheet' type='text/css'>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+  <!--Bootshape-->
+  <link rel="stylesheet" href="/styles/admin.css">
+
+  <link rel="stylesheet" href="/styles/course.css">
+
+  <style>
+    /* Custom styles for the coupon page */
+    body {
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .coupon-container {
+      margin-bottom: 20px;
+    }
+
+    .coupon-card {
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .coupon-card:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .coupon-image {
+      width: 10rem;
+      height: 10rem;
+      object-fit: contain;
+      margin: auto;
+    }
+
+    .coupon-content {
+      padding: 20px;
+    }
+
+    .coupon-description {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .coupon-details,
+    .coupon-expires,
+    .coupon-terms {
+      margin-bottom: 5px;
+    }
+
+    .edit-icon {
+      color: #fff;
+      background-color: #007bff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .edit-icon:hover {
+      background-color: #0056b3;
+    }
+
+    .coupon-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .coupon-container:hover .coupon-overlay {
+      opacity: 1;
+    }
+
+    .coupon-overlay-content {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .coupon-container:hover .coupon-overlay-content {
+      opacity: 1;
+    }
+
+    .modal-dialog {
+      max-width: 500px;
+    }
+
+    .coupon-form {
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .coupon-form h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ced4da;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    .form-group button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #sidebar .side-menu li a {
+      text-decoration: none;
+    }
+
+    .cart-link {
+      position: relative;
+    }
+
+    .cart-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 2px;
+      background-color: black;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .cart-link:hover::after {
+      transform: scaleX(1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <section id="sidebar">
+    <a href="#" class="brand">
+      <i class='bx bxs-smile'></i>
+      <span class="text">AdminPortal</span>
+    </a>
+    <ul class="side-menu top">
+      <li>
+        <a href="/admin" class="">
+          <i class='bx bxs-dashboard'></i>
+          <span class="text cart-link">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/product">
+          <i class='bx bxs-shopping-bag-alt'></i>
+          <span class="text cart-link">Product</span>
+        </a>
+      </li>
+      <li>
+        <a href="/users">
+          <i class='bx bxs-doughnut-chart'></i>
+          <span class="text cart-link">Customers</span>
+        </a>
+      </li>
+      <li>
+        <a href="/adminorder">
+          <i class='bx bxs-message-dots'></i>
+          <span class="text cart-link">Order</span>
+        </a>
+      </li>
+      <li>
+        <a href="/sale-reports">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Reports</span>
+        </a>
+      </li>
+      <li>
+        <a href="/transactions">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Transactions</span>
+        </a>
+      </li>
+      <li class="active">
+        <a href="/couponadmin">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Coupons</span>
+        </a>
+      </li>
+      <li>
+        <a href="/create-banner">
+          <i class='bx bxs-group'></i>
+          <span class="text cart-link">Banner</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="side-menu">
+      <li>
+        <a href="#">
+          <i class='bx bxs-cog'></i>
+          <span class="text cart-link">Settings</span>
+        </a>
+      </li>
+      <li>
+        <a href="/signout" class="logout">
+          <i class='bx bxs-log-out-circle'></i>
+          <span class="text cart-link">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <!-- SIDEBAR -->
+
+
+
+  <!-- CONTENT -->
+  <section id="content">
+    <!-- NAVBAR -->
+    <nav>
+      <i class='bx bx-menu'></i>
+      <a href="/category" class="nav-link">Categories</a>
+      <form action="#">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#couponModal1">
+          Add New Coupon
+        </button>
+      </form>
+      <input type="checkbox" id="switch-mode" hidden>
+      <label for="switch-mode" class="switch-mode"></label>
+      <a href="#" class="notification">
+        <i class='bx bxs-bell'></i>
+        <span class="num">8</span>
+      </a>
+      <a href="#" class="profile">
+        <img src="img/people.png">
+      </a>
+    </nav>
+    <!-- NAVBAR -->
+
+
+
+    <div class="container">
+      <h1 class="mt-5">Coupon Page</h1>
+      <br>
+      <div class="row">
+        {{#each coupon}}
+        <div class="col-md-4">
+          <div class="coupon-container">
+            <div class="card coupon-card">
+              <img src="{{this.image.filepath}}" alt="Coupon 1" class="card-img-top coupon-image">
+              <div class="card-body coupon-content">
+                <h5 class="card-title coupon-description">{{this.description}}</h5>
+                <p class="card-text coupon-details">{{this.details}}</p>
+                <p class="card-text coupon-expires">{{this.expires}}</p>
+                <p class="card-text coupon-terms">{{this.terms}}</p>
+
+
+                <a href="/couponadmin?edit_id={{this._id}}" id="modallink" class="text-light btn btn-primary"> <i
+                    class="fas fa-button"></i>Click</a>
+
+
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  <i class="fas fa-edit"></i>Edit</a>
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <form action="/couponadd" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <input type="hidden" id="id" name="id" value="{{ editdata._id }}">
+          </div>
+
+          <div class="form-group">
+            <label for="coupon-image">Coupon Image URL:</label>
+            <input type="file" id="coupon-image" name="image">
+          </div>
+          <div class="form-group">
+            <label for="coupon-description">Coupon Description:</label>
+            <input type="text" id="coupon-description" value="{{editdata.description}}" name="description" required>
+          </div>
+          <div class="form-group">
+            <label for="coupon-description">Coupon Discount Percentage:</label>
+            <input type="number" id="coupon-description" value="{{editdata.percentage}}" name="percentage" required>
+          </div>
+
+          <div class="form-group">
+            <label for="coupon-details">Coupon Details:</label>
+            <input type="text" id="coupon-details" value="{{editdata.details}}" name="details" required>
+          </div>
+          <div class="form-group">
+            <label for="coupon-expires">Expiration Date:</label>
+            <input type="text" id="coupon-expires" value="{{editdata.expires}}" name="expires" required>
+          </div>
+          <div class="form-group">
+            <label for="coupon-terms">Terms and Conditions:</label>
+            <textarea id="coupon-terms" name="terms">{{editdata.terms}}</textarea>
+          </div>
+
+          <div class="form-group">
+            <button type="submit">Submit Coupon</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/couponadd" method="post" enctype="multipart/form-data">
+              <div class="mb-3">
+                <input type="hidden" id="id" name="id" value="{{ editdata._id }}">
+              </div>
+
+              <div class="form-group">
+                <label for="coupon-image">Coupon Image URL:</label>
+                <input type="file" id="coupon-image" name="image">
+              </div>
+              <div class="form-group">
+                <label for="coupon-description">Coupon Description:</label>
+                <input type="text" id="coupon-description" value="{{editdata.description}}" name="description" required>
+              </div>
+              <div class="form-group">
+                <label for="coupon-description">Coupon Discount Percentage:</label>
+                <input type="number" id="coupon-description" value="{{editdata.percentage}}" name="percentage" required>
+              </div>
+
+              <div class="form-group">
+                <label for="coupon-details">Coupon Details:</label>
+                <input type="text" id="coupon-details" value="{{editdata.details}}" name="details" required>
+              </div>
+              <div class="form-group">
+                <label for="coupon-expires">Expiration Date:</label>
+                <input type="text" id="coupon-expires" value="{{editdata.expires}}" name="expires" required>
+              </div>
+              <div class="form-group">
+                <label for="coupon-terms">Terms and Conditions:</label>
+                <textarea id="coupon-terms" value="{{editdata.terms}}" name="terms"></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit">Submit Coupon</button>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Coupon Form Modal -->
+    <div class="modal fade" id="couponModal1" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="coupon-form">
+            <h2>Add a New Coupon</h2>
+            <form action="/couponadd" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="coupon-image">Coupon Image URL:</label>
+                <input type="file" id="coupon-image" name="image" required>
+              </div>
+              <div class="form-group">
+                <label for="coupon-description">Coupon Description:</label>
+                <input type="text" id="coupon-description" name="description" required>
+              </div>
+              <div class="form-group">
+                <label for="coupon-description">Coupon Discount Percentage:</label>
+                <input type="number" id="coupon-description" name="percentage" required>
+              </div>
+
+              <div class="form-group">
+                <label for="coupon-details">Coupon Details:</label>
+                <input type="text" id="coupon-details" name="details" required>
+              </div>
+              <div class="form-group">
+                <label for="coupon-expires">Expiration Date:</label>
+                <input type="text" id="coupon-expires" name="expires" required>
+              </div>
+              <div class="form-group">
+                <label for="coupon-terms">Terms and Conditions:</label>
+                <textarea id="coupon-terms" name="terms" required></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit">Submit Coupon</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="alert alert-info">
+      <p><strong>Additional Information:</strong></p>
+      <ul>
+        <li>Coupons cannot be combined with any other offers or promotions.</li>
+        <li>Each coupon is valid for one-time use only, unless otherwise specified.</li>
+        <li>Coupons are not redeemable for cash or gift cards.</li>
+        <li>Some products/services may be excluded from coupon offers, as indicated in the terms and conditions.</li>
+        <li>We reserve the right to modify or cancel coupons at any time.</li>
+      </ul>
+    </div>
+
+    <div class="mt-4">
+      <h3>Contact Information</h3>
+      <p>Phone Number: 123-456-7890</p>
+      <p>Email Address: info@example.com</p>
+      <p>Website URL: www.example.com</p>
+    </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+      integrity="sha384-QCk8mLEHqCJX6sJekl29qfk9Z1yR+ADgwrWnZM4gFTVy9Nxuz7HdiyQbT+aGQKHi"
+      crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

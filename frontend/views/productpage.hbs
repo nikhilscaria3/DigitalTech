@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <!-- Remove the following Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
+    <!-- Remove the following magnify CSS link -->
+    <link href="/styles/magnify.css" rel="stylesheet">
+
+    <link href="/styles/styles2.css" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=Duru+Sans|Actor' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #ffffff;
+            color: black;
+        }
+    </style>
+    <style>
+        .rating-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .star-rating {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .rating-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rating-count,
+        .review-count {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .rating-levels {
+            margin-top: 20px;
+        }
+
+        .rating-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .level-count {
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .level-progress {
+            width: 200px;
+            height: 10px;
+            background-color: #f2f2f2;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #00aaff;
+        }
+
+        .count {
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        /* Glowing star style */
+        .reviews i.fas {
+            color: gold;
+            /* Change the color as desired */
+        }
+
+        /* Empty star style */
+        .reviews i.far {
+            color: gray;
+            /* Change the color as desired */
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .rating-label {
+            margin-right: 10px;
+        }
+
+        .progress-bar {
+            width: 150px;
+            height: 10px;
+            background-color: #f2f2f2;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #00aaff;
+        }
+
+
+        .review-card {
+            background-color: #fff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .review-card .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .review-card .review-header .reviewer-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .review-card .review-header .reviewer-info .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .review-card .review-header .reviewer-info .name {
+            font-weight: bold;
+        }
+
+        .review-card .review-content {
+            margin-bottom: 10px;
+        }
+
+        .review-card .rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .review-card .rating .fas {
+            color: #f0c14b;
+            margin-right: 5px;
+        }
+
+        .review-card .rating .rating-value {
+            font-weight: bold;
+        }
+
+        .review-card .review-date {
+            font-size: 14px;
+            color: #888888;
+        }
+    </style>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 40px;
+            height: 40px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 300px;
+            height: 300px;
+        }
+
+        .form {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .value-button {
+            display: inline-block;
+            border: 1px solid #ddd;
+            margin: 0px;
+            width: 4rem;
+            height: 3rem;
+            text-align: center;
+            vertical-align: middle;
+            padding: 11px 0;
+            background: #eee;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .value-button:hover {
+            cursor: pointer;
+        }
+
+        form #decrease {
+            margin-right: -4px;
+            border-radius: 8px 0 0 8px;
+        }
+
+        form #increase {
+            margin-left: -4px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        form #input-wrap {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        input#number {
+            text-align: center;
+            border: none;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin: 0px;
+            width: 40px;
+            height: 40px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #averageCount {
+            font-size: 7rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            justify-content: center;
+            display: flex;
+            position: relative;
+            top: 2rem;
+        }
+
+        #starAverage {
+            margin: auto;
+            display: flex;
+            position: relative;
+            left: 26rem;
+
+            font-size: 4rem;
+            bottom: 6rem;
+        }
+
+        #lengthReview {
+            margin: auto;
+            display: flex;
+            position: relative;
+            left: 20rem;
+            /* width: 23rem; */
+            font-size: 2rem;
+            bottom: 5rem;
+        }
+
+        .navbar-nav .nav-link.dropdown-toggle::after {
+            display: none;
+        }
+
+        .navimage {
+            width: 2.5rem;
+            margin-bottom: -1rem;
+            border-radius: 1rem;
+        }
+
+        .navimage:hover {
+            width: 2.5rem;
+            border-style: groove;
+            margin-bottom: -1rem;
+            border-radius: 1rem;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .dropdown-menu {
+            background-color: #f8f9fa;
+            border: none;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+        }
+    </style>
+
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/image/Gold Luxury Initial Circle Logo (1).png" alt="Logo" width="30" height="24"
+                        class="d-inline-block align-text-top">
+                    Digital Tech
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Category
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link" href="/smartphone">Smartphone</a></li>
+                                <li><a class="dropdown-item nav-link" href="/laptop">Laptop</a></li>
+                                <li><a class="dropdown-item nav-link" href="/headphone">Headphones</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link" href="/cart">Cart</a></li>
+                                <li><a class="dropdown-item nav-link" href="/orderhistory">Order History</a></li>
+                                <li><a class="dropdown-item nav-link" href="/address">Address</a></li>
+                                <li><a class="dropdown-item nav-link" href="/wishlist">Wishlist</a></li>
+                                {{#if userSession}}
+                                <li><a href="/logout" class="dropdown-item nav-link">Logout</a></li>
+                                {{else}}
+                                <li><a href="/login" class="dropdown-item nav-link">Login</a></li>
+                                {{/if}}
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul><a href="/profile" class="profile">
+                            <img style="   " class="navimage" src="/image/Gold Luxury Initial Circle Logo (1).png">
+                        </a></ul>
+                </div>
+            </div>
+        </nav>
+
+
+    </header>
+
+
+    <!-- content -->
+    <section class="pt-6" style="margin-top:7rem">
+        <div class="container">
+
+            <div class="row gx-5" style="height: 45rem;">
+                <aside class="col-lg-6">
+                    <div class="img-zoom-container mb-3 d-flex justify-content-center">
+                        <img src="/{{productWithImages.photos.[0].filepath}}"
+                            alt="{{productWithImages.photos.[0].title}}" class="zoom" style="width: 100%;"
+                            data-magnify-src="/{{productWithImages.photos.[0].filepath}}">
+                    </div>
+
+                    <div class="thumbnail-container">
+                        <div class="thumbnail-wrapper">
+                            {{#each productWithImages.photos}}
+                            <div class="thumbnail-item">
+                                <img class="rounded-2 thumbnail-image zoom" src="/{{filepath}}" alt="{{title}}">
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </aside>
+
+                <style>
+                    .zoom {
+                        border-radius: 23px;
+                    }
+
+                    .thumbnail-container {
+                        display: flex;
+                        overflow-x: auto;
+                    }
+
+                    .thumbnail-wrapper {
+                        display: flex;
+                        gap: 10px;
+                        padding: 5px;
+                    }
+
+                    .thumbnail-item {
+                        flex-shrink: 0;
+                        width: 60px;
+                        height: 60px;
+                    }
+
+                    .thumbnail-image {
+                        width: 100%;
+                        height: 100%;
+                        border-style: groove;
+                        border-width: 9px;
+                        border-radius: 9rem;
+                        border-color: #c6c4c4;
+                        object-fit: cover;
+                    }
+
+                    .thumbnail-image:hover {
+                        width: 100%;
+                        height: 100%;
+                        border-style: groove;
+                        border-width: 9px;
+                        border-radius: 9px;
+                        border-color: #9a9696;
+                        object-fit: cover;
+                    }
+
+                    .product-details {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 10px;
+                    }
+
+                    .quantity-section {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+
+                    .qty-input {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+
+                    .qty-count {
+                        padding: 5px 10px;
+                        background-color: #f5f5f5;
+                        border: none;
+                        cursor: pointer;
+                    }
+
+                    .add-to-cart-form {
+                        display: flex;
+                        gap: 10px;
+                    }
+
+                    .wishlist-form {
+                        display: inline-block;
+                    }
+
+                    .btn {
+                        border-radius: 0;
+                    }
+
+                    .btn-light {
+                        background-color: #f8f9fa;
+                        color: #212529;
+                    }
+
+                    .btn-light:hover {
+                        background-color: #e2e6ea;
+                    }
+
+                    .icon-hover:hover .fa-heart {
+                        color: red;
+                    }
+
+                    /* Add glowing effect to stars */
+                    .glowing {
+                        color: #ffc107;
+                        /* Set the desired glowing color */
+                        animation: glowingStars 1s infinite alternate;
+                        font-weight: 800;
+                    }
+
+                    @keyframes glowingStars {
+                        from {
+                            opacity: 1;
+                        }
+
+                        to {
+                            opacity: 0.7;
+                        }
+                    }
+                </style>
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.3/js/jquery.magnify.min.js"></script>
+
+                <script>
+                    const mainImage = document.querySelector('.zoom');
+                    const magnifyLens = document.querySelector('.magnify-lens');
+
+                    const updateZoomedImage = (src) => {
+                        mainImage.setAttribute('src', src);
+                        mainImage.setAttribute('data-magnify-src', src);
+                        $(".magnify-lens").css("background-image", `url(${src})`);
+                    };
+
+                    $(document).ready(function () {
+                        $('.thumbnail-image').click(function () {
+                            const src = $(this).attr('src');
+                            updateZoomedImage(src);
+                        });
+
+                        $('.zoom').magnify({
+                            speed: 200,
+                            srcset: true,
+                            magnifiedWidth: 1200,
+                            magnifiedHeight: 800,
+                            onLoad: function () {
+                                console.log('Zoom is loaded');
+                            },
+                            beforeZoom: function () {
+                                console.log('Zoom is about to start');
+                            },
+                            afterZoom: function () {
+                                console.log('Zoom has completed');
+                            }
+                        });
+                    });
+                </script>
+
+
+
+
+
+
+
+                <main class="col-lg-6">
+
+                    <div class="ps-lg-3">
+                        <h4 class="h2 " style="color:black;font-weight: 600;">
+                            {{product.productname}}
+                        </h4>
+                        <div class="d-flex flex-row my-3">
+                            <div class="text-warning mb-1 me-2">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ms-1">
+                                    {{product.rating}}
+                                </span>
+                            </div>
+                            {{!-- <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>154
+                                orders</span> --}}
+                            <span id="stock" class="text-success ms-2">In stock ({{remainingStock}})</span>
+                            <span id="unstock" class="text-danger ms-2">Out of stock</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="h3">Rs.{{product.saleprice}}</span>
+
+                            <span class="text-muted"
+                                style="text-decoration: line-through;">{{product.productprice}}</span>
+                        </div>
+
+                        <p style="font-size: 16px;">
+                            {{product.description}}
+                        </p>
+
+                        <div class="row">
+                            {{product.paymentoption}}
+                        </div>
+
+                        <div class="d-none" name="userID">
+                            {{usersession}}
+                        </div>
+
+
+                        <br>
+
+                        <div id="saleicon" class="product-details mt-5">
+                            <div class="quantity-section">
+                                <form action="/cart/{{product._id}}" method="POST" class="add-to-cart-form">
+                                    <label for="quantity">Quantity:</label>
+                                    <div class="qty-input">
+                                        <button class="qty-count qty-count--minus" data-action="minus"
+                                            type="button">-</button>
+                                        <input class="product-qty" type="number" name="quantity" id="quantity" min="0"
+                                            max="10" value="1">
+                                        <button class="qty-count qty-count--add" data-action="add"
+                                            type="button">+</button>
+                                    </div>
+                                    <input type="submit" value="Add to Cart" class="btn btn-primary">
+                                </form>
+                            </div>
+
+                            <div class="d-flex  mt-3 gap-3">
+                                <form action="/productshipping/{{product._id}}" method="post">
+                                    <button class="btn btn-warning">Buy Now</button>
+                                </form>
+
+                                <form action="/wishlist/{{product._id}}" method="post" class="wishlist-form">
+                                    <button class="btn btn-light border border-secondary py-2 icon-hover" type="submit">
+                                        <i class="fa fa-heart fa-lg"></i> Save
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <button id="outofstock" class="btn-info p-2">Out Of Stock</button>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+    <!-- content -->
+
+
+
+    <section class="bg-light border-top py-4">
+        <div class="container">
+            <div class="row gx-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="border rounded-2 px-3 py-2 bg-white">
+                        <!-- Pills navs -->
+                        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                            <li class="nav-item d-flex" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100 active"
+                                    id="ex1-tab-1" data-mdb-toggle="pill" href="#ex1-pills-1" role="tab"
+                                    aria-controls="ex1-pills-1" aria-selected="true">Specification</a>
+                            </li>
+                            <li class="nav-item d-flex" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100"
+                                    id="ex1-tab-2" data-mdb-toggle="pill" href="#ex1-pills-2" role="tab"
+                                    aria-controls="ex1-pills-2" aria-selected="false">Warranty info</a>
+                            </li>
+                            <li class="nav-item d-flex" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100"
+                                    id="ex1-tab-3" data-mdb-toggle="pill" href="#ex1-pills-3" role="tab"
+                                    aria-controls="ex1-pills-3" aria-selected="false">Shipping info</a>
+                            </li>
+                            <li class="nav-item d-flex" role="presentation">
+                                <a class="nav-link d-flex align-items-center justify-content-center w-100"
+                                    id="ex1-tab-4" data-mdb-toggle="pill" href="#ex1-pills-4" role="tab"
+                                    aria-controls="ex1-pills-4" aria-selected="false">Seller profile</a>
+                            </li>
+                        </ul>
+                        <!-- Pills navs -->
+
+                        <!-- Pills content -->
+                        <div class="tab-content" id="ex1-content">
+                            <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel"
+                                aria-labelledby="ex1-tab-1">
+                                <p>
+                                    {{product.description}}
+                                </p>
+                                <div class="row mb-2">
+                                    <div class="col-12 col-md-6">
+                                        <ul class="list-unstyled mb-0">
+                                            {{#each highlight1}}
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point1}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point2}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point3}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point4}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point5}}</li>
+
+
+                                            {{/each}}
+
+
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-0">
+                                        <ul class="list-unstyled">
+                                            {{#each highlight2}}
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point1}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point2}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point3}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point4}}</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>{{this.point5}}</li>
+                                            {{/each}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel"
+                                aria-labelledby="ex1-tab-2">
+
+
+                            </div>
+                            <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel"
+                                aria-labelledby="ex1-tab-3">
+
+                            </div>
+                            <div class="tab-pane fade mb-2" id="ex1-pills-4" role="tabpanel"
+                                aria-labelledby="ex1-tab-4">
+
+                            </div>
+                        </div>
+                        <!-- Pills content -->
+                    </div>
+                </div>
+
+
+               
+
+                <div class="container d-flex">
+                    <div style="width: 50%;">
+                        <p id="averageCount"></p>
+                        <i id="starAverage" class="fas fa-star glowing"></i>
+                        <p id="lengthReview">{{review.length}} Reviews</p>
+                    </div>
+
+
+                    <div class="rating-levels" id="rating-levels">
+                        <!-- The rating levels will be dynamically added here -->
+                    </div>
+
+                </div>
+
+
+                {{!-- <div class="container">
+                    {{#each review}}
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img class="avatar"
+                                    src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
+                                    alt="Avatar">
+                                <div class="name">{{name}}</div>
+                            </div>
+
+                            <div class="review-date">{{reviewDate}}</div>
+                        </div>
+                        <div class="review-content">
+                            <p>{{review}}</p>
+                        </div>
+                        <div class="rating">
+                            <i id="1" class="fas fa-star"></i>
+                            <i id="2" class="fas fa-star"></i>
+                            <i id="3" class="fas fa-star"></i>
+                            <i id="4" class="fas fa-star"></i>
+                            <i id="5" class="far fa-star"></i>
+                            <div class="rating-value">{{rating}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div> --}}
+
+                <style>
+
+                </style>
+                <div class="container" style="overflow: scroll; max-height: 600px;">
+                    {{#each review}}
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img class="avatar"
+                                    src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
+                                    alt="Avatar">
+                                <div class="name">{{name}}</div>
+                            </div>
+                            <div class="review-date">{{reviewDate}}</div>
+                        </div>
+                        <div class="review-content">
+                            <p>{{review}}</p>
+                        </div>
+                        <div class="text-warning mb-1 me-2">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="ms-1" style="width: 37rem; display: flex;">
+                                <p>{{rating}}<i class="fas fa-star"></i></p>
+                            </span>
+                        </div>
+
+                    </div>
+
+
+
+                    {{/each}}
+                </div>
+
+
+
+
+                <style>
+                    .hidden {
+                        display: none;
+                    }
+                </style>
+
+
+
+                <script>
+                    // Get the quantity-related elements
+                    var quantityInput = document.getElementById("quantity");
+                    var minusButton = document.querySelector(".qty-count--minus");
+                    var plusButton = document.querySelector(".qty-count--add");
+
+                    // Add event listeners for the minus and plus buttons
+                    minusButton.addEventListener("click", function () {
+                        decreaseQuantity();
+                    });
+
+                    plusButton.addEventListener("click", function () {
+                        increaseQuantity();
+                    });
+
+                    // Function to decrease the quantity
+                    function decreaseQuantity() {
+                        var currentValue = parseInt(quantityInput.value);
+                        if (currentValue > 0) {
+                            quantityInput.value = currentValue - 1;
+                        }
+                    }
+
+                    // Function to increase the quantity
+                    function increaseQuantity() {
+                        var currentValue = parseInt(quantityInput.value);
+                        if (currentValue < 10) {
+                            quantityInput.value = currentValue + 1;
+                        }
+                    }
+
+                </script>
+
+                <script>
+                    const stars = document.querySelectorAll('.fa-star');
+
+                    const averagecount = parseInt("{{product.rating}}")
+                    stars.forEach((star, index) => {
+                        if (index < averagecount) {
+                            star.classList.add('glowing');
+                        }
+                    });
+
+                </script>
+
+                <script>
+                    const stock = document.getElementById("stock")
+                    const unstock = document.getElementById("unstock")
+                    const saleicon = document.getElementById("saleicon")
+                    const outofstock = document.getElementById("outofstock")
+                    const stockcount = parseInt("{{remainingStock}}")
+
+                    if (stockcount === 0) {
+                        stock.style.display = "none"
+                        unstock.style.display = "block"
+                        saleicon.style.display = "none"
+                        outofstock.style.display = "block"
+
+                    } else {
+                        unstock.style.display = "none"
+                        stock.style.display = "block"
+                        saleicon.style.display = "block"
+                        outofstock.style.display = "none"
+                    }
+                </script>
+
+
+
+                     <script>
+                    const ratingCount = {
+                        5: parseInt("{{ratingCount5}}"),
+                        4: parseInt("{{ratingCount4}}"),
+                        3: parseInt("{{ratingCount3}}"),
+                        2: parseInt("{{ratingCount2}}"),
+                        1: parseInt("{{ratingCount1}}")
+                    };
+
+                    console.log(5)
+
+                    let sum = 0;
+                    let total = 0;
+
+                    for (let rating in ratingCount) {
+                        const count = ratingCount[rating];
+                        sum += parseInt(rating) * count;
+                        total += count;
+                    }
+
+                    const average = total > 0 ? sum / total : 0;
+                    document.getElementById('averageCount').innerHTML = average.toFixed(1);
+                </script>
+
+
+
+                <script>
+                    // Rating counts
+
+                    const averageCount = document.getElementById("averageCount")
+                    const ratingCounts = {
+                        5: " {{ratingCount5}}",
+                        4: "{{ratingCount4}}",
+                        3: " {{ratingCount3}}",
+                        2: "{{ratingCount2}}",
+                        1: "{{ratingCount1}}"
+                    };
+
+
+                    // Color levels
+                    const colorLevels = {
+                        5: '#00aaff',
+                        4: '#2ecc71',
+                        3: '#f1c40f',
+                        2: '#e67e22',
+                        1: '#e74c3c'
+                    };
+
+
+
+
+                    // Generate HTML for each rating level
+                    function generateRatingLevels() {
+                        const ratingLevelsContainer = document.getElementById('rating-levels');
+                        ratingLevelsContainer.innerHTML = '';
+
+                        for (let i = 5; i >= 1; i--) {
+                            const ratingLevel = document.createElement('div');
+                            ratingLevel.classList.add('rating-level');
+
+                            const levelCount = document.createElement('p');
+                            levelCount.classList.add('level-count');
+                            levelCount.textContent = i + '★';
+                            ratingLevel.appendChild(levelCount);
+
+                            const levelProgress = document.createElement('div');
+                            levelProgress.classList.add('level-progress');
+
+                            const progress = document.createElement('div');
+                            progress.classList.add('progress');
+                            progress.style.width = (ratingCounts[i] / 100 * 100) + '%';
+                            progress.style.backgroundColor = colorLevels[i];
+                            levelProgress.appendChild(progress);
+
+                            ratingLevel.appendChild(levelProgress);
+
+                            const count = document.createElement('p');
+                            count.classList.add('count');
+                            count.textContent = ratingCounts[i];
+                            ratingLevel.appendChild(count);
+
+                            ratingLevelsContainer.appendChild(ratingLevel);
+                        }
+                    }
+
+                    // Initial generation of rating levels
+                    generateRatingLevels();
+                </script>
+
+
+
+                <script>
+                    // Get all the star elements
+                    const starElements = document.querySelectorAll('.star');
+
+                    // Handle the click event for each star
+                    starElements.forEach(starElement => {
+                        starElement.addEventListener('click', () => {
+                            const rating = parseInt(starElement.getAttribute('data-rating'));
+
+                            // Calculate the percentage
+                            const percentage = rating * 20;
+
+                            // Set the value of the hidden input
+                            const ratingInput = document.getElementById('ratingInput');
+                            ratingInput.value = rating;
+
+                            // Update the star ratings display
+                            starElements.forEach(star => {
+                                const starRating = parseInt(star.getAttribute('data-rating'));
+                                const starIcon = star.querySelector('i');
+
+                                if (starRating <= rating) {
+                                    starIcon.classList.remove('far');
+                                    starIcon.classList.add('fas');
+                                } else {
+                                    starIcon.classList.remove('fas');
+                                    starIcon.classList.add('far');
+                                }
+                            });
+
+                            // Update the percentage display
+                            const percentageElement = document.getElementById('percentage');
+                            percentageElement.textContent = `${percentage}%`;
+                        });
+                    });
+                </script>
+
+
+                <script>
+                    // Get form elements
+                    const reviewForm = document.querySelector('.reviewform');
+                    const errorContainer = document.querySelector('.errorcontainer');
+                    const thankYouContainer = document.querySelector('.thank-you-container');
+
+                    // Add event listener to form submit
+                    reviewForm.addEventListener('submit', function (event) {
+                        event.preventDefault();
+
+                        // Perform custom validation here, e.g., check if the review is legible
+                        const reviewInput = document.getElementById('review');
+                        const review = reviewInput.value;
+                        if (!isLegible(review)) {
+                            showError('Your review must be legible! Try again!');
+                            return;
+                        }
+
+                        // Submit the form if validation passes
+                        submitForm();
+                    });
+
+                    // Custom validation function
+                    function isLegible(review) {
+                        // Add your validation logic here
+                        return review.trim().length > 0;
+                    }
+
+                    // Show error message
+                    function showError(errorMessage) {
+                        errorContainer.classList.remove('d-none');
+                        errorContainer.querySelector('.error').textContent = errorMessage;
+                    }
+
+                    // Submit the form and show thank you message
+                    function submitForm() {
+                        // Perform form submission here, e.g., using AJAX or by redirecting to another page
+                        // After successful submission, show the thank you message
+                        thankYouContainer.classList.remove('d-none');
+                        reviewForm.reset();
+                    }
+                </script>
+
+
+                <script>
+                    function increaseValue() {
+                        var value = parseInt(document.getElementById('number').value, 10);
+                        value = isNaN(value) ? 0 : value;
+                        value++;
+                        document.getElementById('number').value = value;
+                    }
+
+                    function decreaseValue() {
+                        var value = parseInt(document.getElementById('number').value, 10);
+                        value = isNaN(value) ? 0 : value;
+                        value < 1 ? value = 1 : '';
+                        value--;
+                        document.getElementById('number').value = value;
+                    }
+
+
+                </script>
+
+
+
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

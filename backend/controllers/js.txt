@@ -1,0 +1,403 @@
+exports.createWishlist = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const product = await Product.findOne({ _id: id });
+
+    if (!product) {
+      return res.status(404).render('error', { message: 'Product not found' });
+    }
+
+    let wishlist;
+    const existingWishlistItem = await Wishlist.findOne({ product: product._id });
+
+    if (existingWishlistItem) {
+      const populatedWishlistItem = await existingWishlistItem.populate('product')
+      return res.render('wishlist', {
+        wishlist: populatedWishlistItem, // Pass the populated wishlist item to the template
+      });
+    } else {
+      wishlist = new Wishlist({
+        product: product._id, // Save the ID of the product in the 'product' field
+      });
+
+      await wishlist.save();
+
+      const populatedWishlistItem = await wishlist.populate('product')
+
+      res.render('wishlist', {
+        wishlist: populatedWishlistItem, // Pass the populated wishlist item to the template
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+};
+
+
+
+
+{{!-- <!-- crop-form.hbs -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crop Form</title>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+        }
+
+
+        .image-list {
+            display: flex;
+            flex-wrap: wrap;
+
+
+            width: 100%;
+            max-height: 429px;
+
+            /* Increase the maximum height of the image list container */
+            overflow-y: auto;
+        }
+
+        .image-list>div {
+            width: 48%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .image-list img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .cropButton {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cropButton:hover {
+            background-color: #45a049;
+        }
+
+        .image-form {
+            width: 50%;
+            margin-left: 20px;
+        }
+
+        #previewContainer {
+            margin-top: 20px;
+        }
+
+        #previewCanvas {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-group button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #previewContainer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #previewContainer img {
+            max-width: 100%;
+            max-height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Crop Form</h1>
+
+    <div class="container">
+        <div class="image-list">
+            {{#each product}}
+            <div>
+                {{#each this.images}}
+                <div>
+                    <img src="/uploads/{{this.filepath}}" alt="{{this.title}}">
+                    <button class="cropButton" data-index="{{@index}}"> <a
+                            href="/crop/{{../this._id}}">Crop</a></button>
+                </div>
+
+                {{/each}}
+            </div>
+
+            {{/each}}
+        </div>
+
+        <div class="image-form">
+            <h2>Edit Image</h2>
+            <div id="previewContainer"></div>
+            <form id="imageForm" action="/crop/{{../_id}}/{{@index}}" method="POST">
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="width">Width:</label>
+                    <input type="number" id="widthInput" name="width" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="height">Height:</label>
+                    <input type="number" id="heightInput" name="height" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Crop Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <canvas id="previewCanvas"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cropButtons = document.querySelectorAll('.cropButton');
+            const widthInput = document.getElementById('widthInput');
+            const heightInput = document.getElementById('heightInput');
+            const previewContainer = document.getElementById('previewContainer');
+            let currentImageIndex = null;
+
+            cropButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const img = button.previousElementSibling;
+                    const canvas = document.getElementById('previewCanvas');
+                    const context = canvas.getContext('2d');
+
+                    const cropWidth = parseInt(widthInput.value, 10) || 150;
+                    const cropHeight = parseInt(heightInput.value, 10) || 150;
+
+                    canvas.width = cropWidth;
+                    canvas.height = cropHeight;
+
+                    context.drawImage(img, 0, 0, cropWidth, cropHeight);
+
+                    const croppedImageURL = canvas.toDataURL();
+
+                    previewContainer.innerHTML = '';
+                    const imageElement = document.createElement('img');
+                    imageElement.src = croppedImageURL;
+                    imageElement.alt = 'Cropped Image';
+                    previewContainer.appendChild(imageElement);
+
+                    const originalWidth = img.naturalWidth;
+                    const originalHeight = img.naturalHeight;
+                    widthInput.value = originalWidth;
+                    heightInput.value = originalHeight;
+
+                    currentImageIndex = button.getAttribute('data-index');
+                });
+            });
+
+            const imageForm = document.getElementById('imageForm');
+            imageForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const width = parseInt(widthInput.value, 10) || 150;
+                const height = parseInt(heightInput.value, 10) || 150;
+
+                const formAction = imageForm.getAttribute('action');
+                const updatedAction = formAction.replace(':productId', {{ product._id }}).replace(':imageIndex', currentImageIndex);
+
+            imageForm.setAttribute('action', updatedAction);
+            imageForm.submit();
+        });
+        });
+    </script>
+    </div>
+</body>
+
+</html> --}}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+
+
+    <style>
+        /* Limit image width to avoid overflow the container */
+        img {
+            max-width: 100%;
+            /* This rule is very important, please do not ignore this! */
+        }
+
+        #canvas {
+            height: 600px;
+            width: 600px;
+            background-color: #ffffff;
+            cursor: default;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="image-list">
+            {{#each product}}
+            <div>
+                {{#each this.images}}
+                <div>
+                    <img src="/uploads/{{this.filepath}}" alt="{{this.title}}">
+                    <button class="cropButton">Crop</button>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="image-form">
+            <h2>Edit Image</h2>
+            <div>
+                <canvas id="canvas">
+                    Your browser does not support the HTML5 canvas element.
+                </canvas>
+            </div>
+            <div id="result"></div>
+            <br>
+            <br>
+            <hr>
+            <form id="imageForm" action="/crop/{{../_id}}" method="POST">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="width">Width:</label>
+                    <input type="number" id="widthInput" name="width" required>
+                </div>
+                <div class="form-group">
+                    <label for="height">Height:</label>
+                    <input type="number" id="heightInput" name="height" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Crop Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <p>
+        <!-- Below are a series of inputs which allow file selection and interaction with the cropper api -->
+        <input type="file" id="fileInput" accept="image/*" />
+        <input type="button" id="btnCrop" value="Crop" />
+        <input type="button" id="btnRestore" value="Restore" />
+    </p>
+    <div>
+        <canvas id="canvas">
+            Your browser does not support the HTML5 canvas element.
+        </canvas>
+    </div>
+
+    <div id="result"></div>
+
+    <br />
+    <br />
+    <hr />
+
+
+    <!-- Include the Cropper.js library -->
+  <script>
+    var $imagePreview = $('#imagePreview'),
+      cropper;
+
+    $('.cropButton').on('click', function () {
+      var img = $(this).prev('img');
+      var src = img.attr('src');
+
+      if (src) {
+        $imagePreview.attr('src', src);
+
+        if (cropper) {
+          cropper.destroy();
+        }
+
+        cropper = new Cropper($imagePreview[0], {
+          aspectRatio: 16 / 9
+        });
+      }
+    });
+
+    $('#btnCrop').click(function () {
+      if (cropper) {
+        var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL('image/png');
+        $imagePreview.attr('src', croppedImageDataURL);
+      }
+    });
+
+    $('#btnRestore').click(function () {
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+        $imagePreview.attr('src', '');
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

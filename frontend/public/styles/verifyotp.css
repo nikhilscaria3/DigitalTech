@@ -1,0 +1,100 @@
+h1 {
+    font-weight: 700;
+    margin: 0
+}
+
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: .5px;
+    margin: 20px 0 30px
+}
+
+a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0
+}
+
+.form-container form {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center
+}
+
+.form-container input {
+    background: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all .6s ease-in-out
+}
+
+body {
+    background-color: #162235;
+    background-image: radial-gradient(650px circle at 0 0, #344f7d 15%, #2d446b 35%, #1e2d47 75%, #1c2b44 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, #4366a1 15%, #2d446b 35%, #1e2d47 75%, #1c2b44 80%, transparent 100%)
+}
+
+#radius-shape-1 {
+    height: 220px;
+    width: 220px;
+    top: -60px;
+    left: -130px;
+    background: radial-gradient(#44006b, #ad1fff);
+    overflow: hidden
+}
+
+#radius-shape-2 {
+    border-radius: 38% 62% 63% 37%/70% 33% 67% 30%;
+    bottom: -60px;
+    right: -110px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(#44006b, #ad1fff);
+    overflow: hidden
+}
+
+span[id=email-error],
+span[id=password-error] {
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    color: red
+}
+
+.bg-glass {
+    background-color: hsla(0, 0%, 100%, .9) !important;
+    backdrop-filter: saturate(200%) blur(25px)
+}
+
+input[type=submit] {
+    background-color: #1c2331;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: auto
+}
+
+input[type=submit]:hover {
+    background-color: #0e1521
+}

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/register.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+
+
+</head>
+
+<body>
+  <div class="strike">
+
+  </div>
+  <div class="strike1">
+
+  </div>
+  <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+    <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+    <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div id="left" data-aos="zoom-in-up" class="col-12 col-md-6 text-center">
+        <ul>
+          <h3>EVERYTHING U NEED</h3>
+          <li><box-icon name='check' color='#13ec16'></box-icon> Order History Tracking</li>
+          <li><box-icon name='check' color='#13ec16'></box-icon> Faster checkouts</li>
+          <li><box-icon name='check' color='#13ec16'></box-icon> Order Tracking</li>
+          <li><box-icon name='check' color='#13ec16'></box-icon> Payment Options</li>
+          <li><box-icon name='check' color='#13ec16'></box-icon> COD</li>
+          <li><box-icon name='check' color='#13ec16'></box-icon> Alerts and notifications</li>
+          <li><box-icon name='check' color='#13ec16'></box-icon> Customer Support</li>
+        </ul>
+      </div>
+
+
+      <div data-aos="zoom-in-up" class="col-12 col-md-6">
+        <h1 data-aos="zoom-in-up">Register Form</h1>
+        <form action="/register" method="post" onsubmit="return validateForm()">
+          <p class="message"> {{ message}}</p>
+
+          <label for="name" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" onkeyup="validateName()">
+          <span id="name-error"></span><br>
+
+          <label for="name" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" onkeyup="validatePassword()">
+          <span id="password-error"></span><br>
+
+          <label for="name" class="form-label">Email</label>
+          <input type="text" class="form-control" id="email" name="email" onkeyup="validateEmail()">
+          <span id="email-error"></span><br>
+
+          <span for="captcha">Captcha:</span>
+          <input type="text" id="captcha" name="captcha" required>
+
+          <img src="/captcha" alt="captcha" style="background-color: #fff;">
+          <br><br>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox" value="terms" required>
+            <label class="form-check-label" for="terms">
+              I accept the Digital tech Terms of Service and have read the Privacy Notice. If I am a
+              micro- or small
+              enterprise or a not-for-profit organization in the EEA or UK, I agree to the European
+              Electronic
+              Communications Code Rights Waiver.
+            </label>
+          </div>
+          <input type='submit'>
+          <span class="login">Already have an account ? <a href="/login"><i
+                class="fa-sharp fa-solid fa-right-to-bracket" style="color: #175cd3;"></i></a></span>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://kit.fontawesome.com/74dae4b90e.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script>
+    function validateName() {
+      var nameInput = document.getElementById('username');
+      var nameError = document.getElementById('name-error');
+
+      if (nameInput.value.trim().length === 0) {
+        nameError.innerHTML = 'Name is required.';
+        nameInput.classList.add('is-invalid');
+        nameInput.classList.remove('is-valid');
+      } else {
+        nameError.innerHTML = '';
+        nameInput.classList.add('is-valid');
+        nameInput.classList.remove('is-invalid');
+      }
+    }
+
+    function validatePassword() {
+      var passwordInput = document.getElementById('password');
+      var passwordError = document.getElementById('password-error');
+      var passwordValue = passwordInput.value.trim();
+
+      // Define the regex pattern for password validation
+      var passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+
+      if (passwordValue.length === 0) {
+        passwordError.innerHTML = 'Password is required.';
+        passwordInput.classList.add('is-invalid');
+        passwordInput.classList.remove('is-valid');
+        setTimeout(function () {
+          passwordError.innerHTML = '';
+          passwordInput.classList.remove('is-invalid');
+        }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
+        return false; // Prevent form submission
+      } else if (!passwordPattern.test(passwordValue)) {
+        passwordError.innerHTML = 'Password must contain at least one uppercase letter, one digit, one special character, and be at least 6 characters long.';
+        passwordInput.classList.add('is-invalid');
+        passwordInput.classList.remove('is-valid');
+        setTimeout(function () {
+          passwordError.innerHTML = '';
+          passwordInput.classList.remove('is-invalid');
+        }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
+        return false; // Prevent form submission
+      } else {
+        passwordError.innerHTML = '';
+        passwordInput.classList.add('is-valid');
+        passwordInput.classList.remove('is-invalid');
+        return true; // Allow form submission
+      }
+    }
+
+
+
+    function validateEmail() {
+      var emailInput = document.getElementById('email');
+      var emailError = document.getElementById('email-error');
+      var emailValue = emailInput.value.trim();
+
+      // Define the regex pattern for email validation
+      var emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+      if (emailValue.length === 0 || !emailPattern.test(emailValue)) {
+        emailError.innerHTML = 'Email is required or invalid.';
+        emailInput.classList.add('is-invalid');
+        emailInput.classList.remove('is-valid');
+        setTimeout(function () {
+          emailError.innerHTML = '';
+          emailInput.classList.remove('is-invalid');
+        }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
+        return false;
+      } else {
+        emailError.innerHTML = '';
+        emailInput.classList.add('is-valid');
+        emailInput.classList.remove('is-invalid');
+      }
+    }
+
+
+
+
+    function validateForm() {
+      validateName();
+      validatePassword();
+      validateEmail()
+
+      var invalidInputs = document.querySelectorAll('.is-invalid');
+      if (invalidInputs.length > 0) {
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</body>
+
+</html>

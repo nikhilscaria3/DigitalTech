@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+
+    <style>
+        /* Limit image width to avoid overflow the container */
+        img {
+            max-width: 100%;
+            /* This rule is very important, please do not ignore this! */
+        }
+
+        .image-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .image-item {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .image-item img {
+            max-height: 200px;
+            object-fit: contain;
+        }
+
+        #imagePreview {
+            height: 600px;
+            width: 600px;
+            background-color: #ffffff;
+            cursor: default;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="image-list">
+        {{#each product}}
+        <div>
+            {{#each this.images}}
+            <div class="image-item">
+                <img src="/uploads/{{this.filepath}}" alt="{{this.title}}">
+                <button class="cropButton" data-src="/uploads/{{this.filepath}}">Crop</button>
+            </div>
+            {{/each}}
+        </div>
+        {{/each}}
+    </div>
+
+    <div>
+        <form action="/update">
+            <img id="imagePreview" src="" alt="Preview Image" />
+    </div>
+    <input type="button" id="btnCrop" value="Crop Image" />
+
+    <input type="button" id="btnRestore" value="Restore" />
+    <div id="result"></div>
+    <br />
+    <br />
+    <hr />
+    </form>
+
+    <script>
+        var $imagePreview = $('#imagePreview'),
+            $result = $('#result'),
+            cropper;
+
+        $('.cropButton').on('click', function () {
+            var src = $(this).data('src');
+
+            if (src) {
+                $imagePreview.attr('src', src);
+
+                if (cropper) {
+                    cropper.destroy();
+                }
+
+                cropper = new Cropper($imagePreview[0], {
+                    aspectRatio: 16 / 9
+                });
+            }
+        });
+
+        $('#btnCrop').click(function () {
+            if (cropper) {
+                var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL('image/png');
+                $result.html($('<img>').attr('src', croppedImageDataURL));
+            }
+        });
+
+        $('#btnRestore').click(function () {
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+                $imagePreview.attr('src', '');
+                $result.empty();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link href="/styles/load.css" rel="stylesheet">
+</head>
+
+<body onload="myFunction()" style="margin:0;">
+    <div id="loader"></div>
+
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <div class="container">
+            <h2>OTP Verification</h2>
+            {{#if message}}
+            <div class="alert alert-success" role="alert">{{message}}</div>
+            {{/if}}
+            {{#if error}}
+            <div class="alert alert-danger" role="alert">{{error}}</div>
+            {{/if}}
+            <form method="POST" action="/verify-otp">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="otp">OTP</label>
+                    <input type="text" class="form-control" id="otp" name="otp" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Verify OTP</button>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        var myVar;
+
+        function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        }
+    </script>
+
+
+</body>
+
+</html>

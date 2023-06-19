@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/birdsedit.css" type="text/css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles/birdsedit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <!--Bootshape-->
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/course.css">
+</head>
+
+<body>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid;
+        }
+
+        .cart-link {
+            position: relative;
+        }
+
+        .cart-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cart-link:hover::after {
+            transform: scaleX(1);
+        }
+    </style>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">AdminHub</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="#" class="">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text cart-link">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/product">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text cart-link">Product</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/users">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text cart-link">Customers</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminorder">
+                    <i class='bx bxs-message-dots'></i>
+                    <span class="text cart-link">Order</span>
+                </a>
+            </li>
+            <li>
+                <a href="/sale-reports">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="/transactions">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Transactions</span>
+                </a>
+            </li>
+            <li>
+                <a href="/couponadmin">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Coupons</span>
+                </a>
+            </li>
+            <li>
+                <a href="/create-banner">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Banner</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <i class='bx bxs-cog'></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="/signout" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <a href="/category" class="nav-link">Categories</a>
+            <form class="d-flex mx-auto">
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="/productadd">Add</a>
+        </nav>
+
+
+
+        {{!--
+        <table id="example" class="table table-dark table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <td>{{username}}</td>
+                    <td>{{email}}</td>
+                    <td>
+                        {{!-- {{#if blocked}}
+                        <a href="/users?block_id={{this._id}}&blocked=false">Unblock</a>
+                        {{else}}
+                        <a href="/users?block_id={{this._id}}&blocked=true">Block</a>
+                        {{/if}} --}}
+                        {{!-- <a href="/users?delete_id={{this._id}}" data-delete>Delete</a>
+                    </td>
+
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+
+        <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+            integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+            crossorigin="anonymous"></script> --}}
+
+        <table id="example" class="table table-dark table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr class="tr">
+                    <td>{{username}}</td>
+                    <td>{{email}}</td>
+                    <td>
+
+                        <a id="block" class="btn btn-success"
+                            href="/users?edit_id={{this._id}}&status=unblocked">Unblock</a>
+                        <a id="unblock" class="btn btn-danger"
+                            href="/users?edit_id={{this._id}}&status=blocked">Block</a>
+                    </td>
+
+
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+    </section>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <!-- JavaScript for delete confirmation -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script defer src="./JS/script.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+
+        $(document).ready(function () {
+            $('#example').on('click', '.btn-primary', function () {
+                $('#updateModal').modal('show');
+            });
+        });
+
+
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+
+
+
+        // TOGGLE SIDEBAR
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+        })
+
+
+
+        if (window.innerWidth < 768) {
+            sidebar.classList.add('hide');
+        } else if (window.innerWidth > 576) {
+            searchButtonIcon.classList.replace('bx-x', 'bx-search');
+            searchForm.classList.remove('show');
+        }
+
+
+        window.addEventListener('resize', function () {
+            if (this.innerWidth > 576) {
+                searchButtonIcon.classList.replace('bx-x', 'bx-search');
+                searchForm.classList.remove('show');
+            }
+        })
+
+    </script>
+
+
+</body>
+
+
+</html>
