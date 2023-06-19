@@ -17,7 +17,7 @@ const multer = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
-    destination: '/backend/uploads/',
+    destination: 'backend/uploads/',
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
         cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
@@ -64,6 +64,7 @@ router.get('/orderhistory', goToLoginIfNotAuth, setUserId, productController.get
 router.get('/orderinfo/:id', goToLoginIfNotAuth, setUserId, productController.getOrderInfo)
 router.post('/reviewSuccess/:id', goToLoginIfNotAuth, setUserId, productController.postreviews)
 router.get('/paymentcard', goToLoginIfNotAuth, setUserId, productController.getCards)
+
 router.post('/paymentcard', goToLoginIfNotAuth, setUserId, productController.postCards)
 
 router.get('/', goToLoginIfNotAuth, setUserId, paymentController.renderProductPage)

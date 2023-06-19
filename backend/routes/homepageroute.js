@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const homeController = require('../controllers/homecontroller');
 const productController = require('../controllers/productcontroller');
-const nocache = require('nocache');
 const { getProfile, postProfile } = require('../controllers/profilecontroller');
 
 const goToLoginIfNotAuth = (req, res, next) => {

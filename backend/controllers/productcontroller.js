@@ -1,6 +1,5 @@
 const { assign } = require('nodemailer/lib/shared');
-const { Product, Cart, Order, Card, Address, Payment, Review, Wishlist } = require('../models/productmodel');
-const { User } = require('../models/usermodel');
+const { Product, Cart, Order, Card, Address, Review,  } = require('../models/productmodel');
 
 const razorpay = require('razorpay');
 
@@ -1169,8 +1168,7 @@ exports.getCards = async (req, res) => {
   }
 }
 
-const bcrypt = require('bcrypt');
-const { patch } = require('../routes/productpageroute');
+
 
 exports.postCards = async (req, res) => {
   try {
