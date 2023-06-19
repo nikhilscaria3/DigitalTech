@@ -10,9 +10,9 @@ const svgCaptcha = require('svg-captcha');
 const cacheControl = require('cache-control');
 const connectMongoDbSession = require('connect-mongodb-session');
 const sharp = require('sharp');
-const connectDatabase = require('./backend/config/database');
+const connectDatabase = require('./config/database');
 const dotenv = require('dotenv');
-dotenv.config({path:path.join(__dirname,"backend/config/config.env")});
+dotenv.config({path:path.join(__dirname,"config/config.env")});
 
 const app = express();
 mongoose.set('debug', true);
@@ -84,15 +84,26 @@ app.use(cacheControl({ noCache: true }));
 
 // Set view engine and views directory
 app.set('view engine', 'hbs');
-app.set('views', [path.join(__dirname, 'frontend/views'), path.join(__dirname, 'backend/routes'), path.join(__dirname, 'backend/uploads'),path.join(__dirname, 'backend/config')]);
+
+// app.set('views', [
+//   path.join(__dirname, 'frontend/views'),
+//   path.join(__dirname, 'backend/routes'),
+//   path.join(__dirname, 'backend/uploads'),
+//   path.join(__dirname, 'backend/config')
+// ]);
+
+
+
+app.set('views', path.join(__dirname, '../frontend/views'));
 
 // Configure static file serving
-app.use('/uploads', express.static('backend/uploads'));
-app.use(express.static(path.join(__dirname, 'frontend/public')));
-app.use('/routes', express.static('backend/routes'));
-app.use('/uploads1', express.static('uploads1'));
-app.use(express.static(path.join(__dirname, 'frontend/views')));
-app.use(express.static(path.join(__dirname, 'frontend/views/html')));
+app.use('/uploads', express.static(path.join(__dirname, '../backend/uploads')));
+
+app.use(express.static(path.join(__dirname, '../frontend/public')));
+app.use(express.static(path.join(__dirname, '../frontend/views')));
+app.use(express.static(path.join(__dirname, '../frontend/views/html')));
+
+
 
 // Parse request bodies
 app.use(express.urlencoded({ extended: true }));
@@ -100,20 +111,20 @@ app.use(express.json());
 
 // Routes
 // const orderhistory = require('./routes/orderhistoryroute')
-const forget = require('./backend/routes/forgetpassword');
-const login = require('./backend/routes/loginroute');
-const register = require('./backend/routes/registerroute');
-const homepage = require('./backend/routes/homepageroute');
-const productadd = require('./backend/routes/productaddroute');
-const admin = require('./backend/routes/adminroute');
-const productedit = require('./backend/routes/producteditroute');
-const Product = require('./backend/routes/productroute');
-const userRoutes = require('./backend/routes/userroutes');
-const categoryroutes = require('./backend/routes/categoryroute');
-const laptoproutes = require('./backend/routes/laptoproute');
-const smartphoneroutes = require('./backend/routes/smartphoneroute');
-const productroute = require('./backend/routes/productpageroute');
-const salesRoutes = require('./backend/routes/saleroute');
+const forget = require('./routes/forgetpassword');
+const login = require('./routes/loginroute');
+const register = require('./routes/registerroute');
+const homepage = require('./routes/homepageroute');
+const productadd = require('./routes/productaddroute');
+const admin = require('./routes/adminroute');
+const productedit = require('./routes/producteditroute');
+const Product = require('./routes/productroute');
+const userRoutes = require('./routes/userroutes');
+const categoryroutes = require('./routes/categoryroute');
+const laptoproutes = require('./routes/laptoproute');
+const smartphoneroutes = require('./routes/smartphoneroute');
+const productroute = require('./routes/productpageroute');
+const salesRoutes = require('./routes/saleroute');
 
 app.use('/', salesRoutes);
 app.use('/', forget)
@@ -319,7 +330,7 @@ app.post('/crop/:id', async (req, res) => {
 
 
 
-const { Product: ProductModel } = require('./backend/models/productmodel');
+const { Product: ProductModel } = require('./models/productmodel');
 
 app.get('/search', async (req, res) => {
   const searchTerm = req.query.term;
