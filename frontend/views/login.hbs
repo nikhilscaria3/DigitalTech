@@ -38,158 +38,159 @@
         }
     </style>
 
-    <ul class="nav justify-content-end">
-        <li class="nav-item">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img id="logo" src="/image/Gold Luxury Initial Circle Logo (1).png" alt="Logo" width="50"
-                        height="50">
-                    <span id="name" class="ml-2">Digital Tech</span>
-                </a>
-            </div>
-        </li>
-    </ul>
-
-
-
-    <div class="strike">
-
-    </div>
-    <div class="strike1">
-
-    </div>
-
-
-    <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-    <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-
-
-
-
-
-    <div class="container" id="container">
-
-        <div class="form-container sign-in-container">
-            <form action="/login" method="post">
-                <h1>Sign in</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+  
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img id="logo" src="/image/Gold Luxury Initial Circle Logo (1).png" alt="Logo" width="50"
+                            height="50">
+                        <span id="name" class="ml-2">Digital Tech</span>
+                    </a>
                 </div>
-                <span>or use your account</span>
-                <label for="name" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" onkeyup="validateEmail()">
-                <span id="email-error"></span><br>
+            </li>
+        </ul>
 
-                <button id="submit" type="submit">Sign In</button>
-                <a href="/forgot">Forgot
-                    Password ?</a>
-            </form>
+
+
+        <div class="strike">
+
         </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-right">
-                    <p>{{message}}</p>
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
-                    <a href="/register"> <button class="ghost" id="signUp">Sign Up</button></a>
+        <div class="strike1">
+
+        </div>
+
+
+        <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+
+
+
+
+        <div class="container" id="container">
+
+            <div class="form-container sign-in-container">
+                <form action="/login" method="post">
+                    <h1>Sign in</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your account</span>
+                    <label for="name" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" onkeyup="validateEmail()">
+                    <span id="email-error"></span><br>
+
+                    <button id="submit" type="submit">Sign In</button>
+                    <a href="/forgot">Forgot
+                        Password ?</a>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-right">
+                        <p>{{message}}</p>
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <a href="/register"> <button class="ghost" id="signUp">Sign Up</button></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
 
-    <script>
-        function validatePassword() {
-            var passwordInput = document.getElementById('password');
-            var passwordError = document.getElementById('password-error');
-            var passwordValue = passwordInput.value.trim();
+        <script>
+            function validatePassword() {
+                var passwordInput = document.getElementById('password');
+                var passwordError = document.getElementById('password-error');
+                var passwordValue = passwordInput.value.trim();
 
-            // Define the regex pattern for password validation
-            var passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+                // Define the regex pattern for password validation
+                var passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
 
-            if (passwordValue.length === 0) {
-                passwordError.innerHTML = 'Password is required.';
-                passwordInput.classList.add('is-invalid');
-                passwordInput.classList.remove('is-valid');
-                setTimeout(function () {
+                if (passwordValue.length === 0) {
+                    passwordError.innerHTML = 'Password is required.';
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.classList.remove('is-valid');
+                    setTimeout(function () {
+                        passwordError.innerHTML = '';
+                        passwordInput.classList.remove('is-invalid');
+                    }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
+                    return false; // Prevent form submission
+                } else if (!passwordPattern.test(passwordValue)) {
+                    passwordError.innerHTML = 'Password must contain at least one uppercase letter, one digit, one special character, and be at least 6 characters long.';
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.classList.remove('is-valid');
+                    setTimeout(function () {
+                        passwordError.innerHTML = '';
+                        passwordInput.classList.remove('is-invalid');
+                    }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
+                    return false; // Prevent form submission
+                } else {
                     passwordError.innerHTML = '';
+                    passwordInput.classList.add('is-valid');
                     passwordInput.classList.remove('is-invalid');
-                }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
-                return false; // Prevent form submission
-            } else if (!passwordPattern.test(passwordValue)) {
-                passwordError.innerHTML = 'Password must contain at least one uppercase letter, one digit, one special character, and be at least 6 characters long.';
-                passwordInput.classList.add('is-invalid');
-                passwordInput.classList.remove('is-valid');
-                setTimeout(function () {
-                    passwordError.innerHTML = '';
-                    passwordInput.classList.remove('is-invalid');
-                }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
-                return false; // Prevent form submission
-            } else {
-                passwordError.innerHTML = '';
-                passwordInput.classList.add('is-valid');
-                passwordInput.classList.remove('is-invalid');
-                return true; // Allow form submission
+                    return true; // Allow form submission
+                }
             }
-        }
 
-        function validateEmail() {
-            var emailInput = document.getElementById('email');
-            var emailError = document.getElementById('email-error');
-            var emailValue = emailInput.value.trim();
+            function validateEmail() {
+                var emailInput = document.getElementById('email');
+                var emailError = document.getElementById('email-error');
+                var emailValue = emailInput.value.trim();
 
-            // Define the regex pattern for email validation
-            var emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+                // Define the regex pattern for email validation
+                var emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-            if (emailValue.length === 0 || !emailPattern.test(emailValue)) {
-                emailError.innerHTML = 'Email is required or invalid.';
-                emailInput.classList.add('is-invalid');
-                emailInput.classList.remove('is-valid');
-                setTimeout(function () {
+                if (emailValue.length === 0 || !emailPattern.test(emailValue)) {
+                    emailError.innerHTML = 'Email is required or invalid.';
+                    emailInput.classList.add('is-invalid');
+                    emailInput.classList.remove('is-valid');
+                    setTimeout(function () {
+                        emailError.innerHTML = '';
+                        emailInput.classList.remove('is-invalid');
+                    }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
+                    return false;
+                } else {
                     emailError.innerHTML = '';
+                    emailInput.classList.add('is-valid');
                     emailInput.classList.remove('is-invalid');
-                }, 2000); // Set the delay to 3000 milliseconds (3 seconds)
-                return false;
-            } else {
-                emailError.innerHTML = '';
-                emailInput.classList.add('is-valid');
-                emailInput.classList.remove('is-invalid');
-            }
-        }
-
-
-
-
-
-        function validateForm() {
-            validatePassword();
-            validateEmail()
-
-            var invalidInputs = document.querySelectorAll('.is-invalid');
-            if (invalidInputs.length > 0) {
-                return false;
+                }
             }
 
-            return true;
-        }
-    </script>
 
-    <!-- Section: Design Block -->
-    <script src="/validation/validate.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://kit.fontawesome.com/74dae4b90e.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-</body>
+
+
+
+            function validateForm() {
+                validatePassword();
+                validateEmail()
+
+                var invalidInputs = document.querySelectorAll('.is-invalid');
+                if (invalidInputs.length > 0) {
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
+
+        <!-- Section: Design Block -->
+        <script src="/validation/validate.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://kit.fontawesome.com/74dae4b90e.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+    </body>
 
 </html>
