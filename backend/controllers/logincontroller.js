@@ -119,32 +119,40 @@ exports.postUser = async (req, res) => {
 
       const otp = Math.floor(Math.random() * 1000000);
 
+      console.log("host", process.env.HOST);
+      console.log("email", req.body.email);
+      
       // Send an email to the user with the OTP
-      const mailOptions = {
-        from: 'nikhilscaria3@gmail.com',
-        to: req.body.email,
-        subject: 'Email verification OTP',
-        text: `Your OTP is ${otp}`,
-      };
-
       const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: process.env.SMTP_SECURE === 'true',
+        host: process.env.HOST,
+        service: process.env.SERVICE,
+        port: Number(process.env.EMAIL_PORT),
+        secure: Boolean(process.env.SECURE),
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
-        },
-      });
-      
-
-      transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send('Error sending email');
         }
       });
-
+      
+      const options = {
+        from: process.env.SMTP_USER,
+        to: user.email, // Use the email associated with the user session
+        subject: "DigitalTech Ecommerce - Email Verification OTP",
+        text: `Hello,\n\nThank you for signing up for DigitalTech Ecommerce. Your OTP (One-Time Password) for email verification is: ${otp}. Please enter this OTP on the verification page to complete your registration.\n\nIf you did not sign up for DigitalTech Ecommerce, please ignore this email.\n\nBest regards,\nThe DigitalTech Ecommerce Team`,
+      };
+      
+      transporter.sendMail(options, (err, info) => {
+        if (err) {
+          console.log("Email not sent");
+          console.error(err);
+          return res.status(500).json({ message: "Error sending email" });
+        } else {
+          console.log("Email sent successfully");
+          return res.status(200).json({ message: "Email sent" });
+        }
+      });
+      
+      
       req.session.loggedIn = false; // Set loggedIn to false initially
       req.session.otp = otp;
       req.session.username = user.username;
@@ -180,32 +188,36 @@ exports.resendOTP = async (req, res) => {
 
     // Update the user's OTP in the database
 
-
-    // Send an email to the user with the new OTP
-    const mailOptions = {
-      from: 'nikhilscaria3@gmail.com',
-      // to: user.email,
-      to: req.body.email,
-      subject: 'Email verification OTP',
-      text: `Your new OTP is ${otp}`,
-    };
-
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      secure: process.env.SMTP_SECURE === 'true',
+      host: process.env.HOST,
+      service: process.env.SERVICE,
+      port: Number(process.env.EMAIL_PORT),
+      secure: Boolean(process.env.SECURE),
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
-      },
-    });
-    
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send('Error sending email');
       }
     });
+    
+    const options = {
+      from: process.env.SMTP_USER,
+      to: user.email, // Use the email associated with the user session
+      subject: "DigitalTech Ecommerce - Email Verification OTP",
+      text: `Hello,\n\nThank you for signing up for DigitalTech Ecommerce. Your OTP (One-Time Password) for email verification is: ${otp}. Please enter this OTP on the verification page to complete your registration.\n\nIf you did not sign up for DigitalTech Ecommerce, please ignore this email.\n\nBest regards,\nThe DigitalTech Ecommerce Team`,
+    };
+    
+    
+    transporter.sendMail(options, (err, info) => {
+      if (err) {
+        console.log("Email not sent");
+        console.error(err);
+        return res.status(500).json({ message: "Error sending email" });
+      } else {
+        console.log("Email sent successfully");
+        return res.status(200).json({ message: "Email sent" });
+      }
+    });
+    
 
     req.session.otp = otp;
     console.log(otp);
