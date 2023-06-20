@@ -108,12 +108,11 @@
             </div>
         </div>
         <!-- Heading -->
-
         <section class="h-100 gradient-custom">
-            <div class="container py-5 h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="container py-5">
+                <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-lg-10 col-xl-8">
-                        <div class="card" style="border-radius: 10px;">
+                        <div class="card">
                             <div class="card-header px-4 py-5">
                                 <h5 class="text-muted mb-0">Thanks for your Order, <span
                                         style="color: #050505;">{{order.address.name}}</span>!</h5>
@@ -121,108 +120,82 @@
                             <div class="card-body p-4">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <p class="lead fw-normal mb-0" style="color: #060606;">Order Recap</p>
-                                    <a href="/homepage" class="text-decoration-none">Back to home</p>
+                                    <a href="/homepage" class="text-decoration-none">Back to home</a>
                                 </div>
                                 <div class="card shadow-0 border mb-4">
                                     <div class="card-body">
                                         <div class="row">
-
-                                            <div class="col-md-5 col-xl-4 offset-xl-1">
-
+                                            <div class="col-lg-5">
                                                 {{#each image}}
                                                 {{#if this.image}}
                                                 <div class="productimage">
                                                     <div class="image-container">
-                                                        <img src="/{{this.image.filepath}}"
-                                                            alt="{{this.image.title}}" style="    margin-left: 9rem;"
-                                                            class="fixed-size-image">
+                                                        <img src="/{{this.image.filepath}}" alt="{{this.image.title}}"
+                                                            class="img-fluid">
                                                     </div>
                                                 </div>
                                                 {{/if}}
                                                 {{/each}}
+                                            </div>
+                                            <div class="col-lg-7">
                                                 {{#each order.product}}
-                                                <div class="rounded d-flex flex-column p-2"
-                                                    style="background-color: #f8f9fa;    width: 40rem;">
-                                                    <div style="font-size:19px" class="p-2 text-dark me-3">
+                                                <div class="rounded d-flex flex-column p-2 mb-3"
+                                                    style="background-color: #f8f9fa;">
+                                                    <div style="font-size: 19px;" class="p-2 text-dark">
                                                         -> {{productname}}
                                                     </div>
-
                                                     <div class="p-2 d-flex">
                                                         <div class="col-8">Price</div>
                                                         <div class="ms-auto">Rs.{{productprice}}</div>
                                                     </div>
                                                     <div class="border-top px-2 mx-2"></div>
-                                                    <div class="p-2 d-flex pt-3">
+                                                    <div class="p-2 d-flex">
                                                         <div class="col-8">Offer Price</div>
                                                         <div class="ms-auto">Rs.{{saleprice}}</div>
                                                     </div>
-
-                                                    {{/each}}
-                                                    <div class="border-top px-2 mx-2"></div>
-                                                    <div class="p-2 d-flex pt-3">
-                                                        <div class="ms-auto"><b class="text-success"></b>
-                                                        </div>
+                                                </div>
+                                                {{/each}}
+                                                <div class="rounded p-3 mb-3" style="background-color: #f8f9fa;">
+                                                    <h4>Address Recap</h4>
+                                                    <div class="ms-auto">
+                                                        <p>{{order.address.name}}</p>
+                                                        <p>{{order.address.address}}</p>
+                                                        <p>{{order.address.country}}{{order.address.state}}</p>
+                                                        <p>{{order.address.district}}</p>
+                                                        <p>{{order.address.zip}}</p>
                                                     </div>
                                                 </div>
-
-                                                <h4>Address Recap</h4>
-
-                                                <div class="rounded d-flex flex-column p-2"
-                                                    style="background-color: #f8f9fa;     width: 40rem;">
-                                                    <div class="p-2 me-3">
-
-                                                    </div>
-                                                    <div class="">
-
-                                                        <div class="ms-auto">
-                                                            <p>{{order.address.name}}</p>
-                                                            <p>{{order.address.address}}</p>
-                                                            <p>{{order.address.country}}{{order.address.state}}</p>
-                                                            <p>{{order.address.district}}</p>
-                                                            <p>{{order.address.zip}}</p>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
-                                <div id="cancel" class=" rounded pt-3">
+                                <div id="cancel" class="rounded pt-3">
                                     <a href="/orderinfo/{{order._id}}?edit_id={{order._id}}&status=Order Canceled"
-                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Cancel
-                                        Your Order
-                                    </a>
-
+                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Cancel Your
+                                        Order</a>
                                 </div>
-
-                                <div id="cancelled" class=" pt-3">
+                                <div id="cancelled" class="pt-3">
                                     <a href="/orderinfo/{{order._id}}?edit_id={{order._id}}&status=Order Canceled"
-                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Order Canceled
-                                    </a>
-
+                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Order
+                                        Canceled</a>
                                 </div>
-
-                                <div id="return" class=" pt-3">
+                                <div id="return" class="pt-3">
                                     <a href="/orderinfo/{{order._id}}?edit_id={{order._id}}&status=Order Return"
-                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Order Return
-                                    </a>
-
+                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Order
+                                        Return</a>
                                 </div>
-
-                                <div id="returned" class=" pt-3">
+                                <div id="returned" class="pt-3">
                                     <a href="/orderinfo/{{order._id}}?edit_id={{order._id}}&status=Order Return"
-                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Order Returned
-                                    </a>
-
+                                        class="text-light bg-danger p-2 text-decoration-none" data-delete>Order
+                                        Returned</a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+
 
         <div id="reviewContainer" class="container mb-5 mx-auto" style="display: none;">
             <div class="alert alert-danger errorcontainer d-none" role="alert">
