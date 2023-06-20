@@ -270,35 +270,57 @@
             margin: 0;
         }
 
+        .review-section {
+            padding: 20px;
+            background-color: #f8f8f8;
+        }
+
+        .review-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+          #rating-levels {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+
         #averageCount {
             font-size: 7rem;
             font-weight: bold;
             margin-bottom: 20px;
-            justify-content: center;
-            display: flex;
-            position: relative;
-            top: 2rem;
         }
 
         #starAverage {
-            margin: auto;
-            display: flex;
-            position: relative;
-            left: 26rem;
-
             font-size: 4rem;
-            bottom: 6rem;
+            margin-left: 10px;
         }
 
         #lengthReview {
-            margin: auto;
-            display: flex;
-            position: relative;
-            left: 20rem;
-            /* width: 23rem; */
             font-size: 2rem;
-            bottom: 5rem;
+            margin-top: -10px;
         }
+
+        @media (min-width: 992px) {
+
+            .review-info,
+            #rating-levels {
+                align-items: center;
+            }
+
+            .rating {
+                margin-right: 20px;
+            }
+        }
+
+
 
         .navbar-nav .nav-link.dropdown-toggle::after {
             display: none;
@@ -345,7 +367,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, .1);
         }
     </style>
-
 
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -395,15 +416,19 @@
                         </li>
                     </ul>
 
-                    <ul><a href="/profile" class="profile">
-                            <img style="   " class="navimage" src="/image/Gold Luxury Initial Circle Logo (1).png">
-                        </a></ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="/profile" class="nav-link">
+                                <img class="navimage" src="/image/Gold Luxury Initial Circle Logo (1).png"
+                                    alt="Profile">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
-
-
     </header>
+
 
 
     <!-- content -->
@@ -668,7 +693,6 @@
     <!-- content -->
 
 
-
     <section class="bg-light border-top py-4">
         <div class="container">
             <div class="row gx-4">
@@ -676,24 +700,20 @@
                     <div class="border rounded-2 px-3 py-2 bg-white">
                         <!-- Pills navs -->
                         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                            <li class="nav-item d-flex" role="presentation">
-                                <a class="nav-link d-flex align-items-center justify-content-center w-100 active"
-                                    id="ex1-tab-1" data-mdb-toggle="pill" href="#ex1-pills-1" role="tab"
-                                    aria-controls="ex1-pills-1" aria-selected="true">Specification</a>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="pill" href="#ex1-pills-1"
+                                    role="tab" aria-controls="ex1-pills-1" aria-selected="true">Specification</a>
                             </li>
-                            <li class="nav-item d-flex" role="presentation">
-                                <a class="nav-link d-flex align-items-center justify-content-center w-100"
-                                    id="ex1-tab-2" data-mdb-toggle="pill" href="#ex1-pills-2" role="tab"
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="pill" href="#ex1-pills-2" role="tab"
                                     aria-controls="ex1-pills-2" aria-selected="false">Warranty info</a>
                             </li>
-                            <li class="nav-item d-flex" role="presentation">
-                                <a class="nav-link d-flex align-items-center justify-content-center w-100"
-                                    id="ex1-tab-3" data-mdb-toggle="pill" href="#ex1-pills-3" role="tab"
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="ex1-tab-3" data-mdb-toggle="pill" href="#ex1-pills-3" role="tab"
                                     aria-controls="ex1-pills-3" aria-selected="false">Shipping info</a>
                             </li>
-                            <li class="nav-item d-flex" role="presentation">
-                                <a class="nav-link d-flex align-items-center justify-content-center w-100"
-                                    id="ex1-tab-4" data-mdb-toggle="pill" href="#ex1-pills-4" role="tab"
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="ex1-tab-4" data-mdb-toggle="pill" href="#ex1-pills-4" role="tab"
                                     aria-controls="ex1-pills-4" aria-selected="false">Seller profile</a>
                             </li>
                         </ul>
@@ -715,11 +735,8 @@
                                             <li><i class="fas fa-check text-success me-2"></i>{{this.point3}}</li>
                                             <li><i class="fas fa-check text-success me-2"></i>{{this.point4}}</li>
                                             <li><i class="fas fa-check text-success me-2"></i>{{this.point5}}</li>
-
-
                                             {{/each}}
-
-
+                                        </ul>
                                     </div>
                                     <div class="col-12 col-md-6 mb-0">
                                         <ul class="list-unstyled">
@@ -730,15 +747,12 @@
                                             <li><i class="fas fa-check text-success me-2"></i>{{this.point4}}</li>
                                             <li><i class="fas fa-check text-success me-2"></i>{{this.point5}}</li>
                                             {{/each}}
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel"
                                 aria-labelledby="ex1-tab-2">
-
 
                             </div>
                             <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel"
@@ -754,365 +768,336 @@
                     </div>
                 </div>
 
-
-               
-
-                <div class="container d-flex">
-                    <div style="width: 50%;">
-                        <p id="averageCount"></p>
-                        <i id="starAverage" class="fas fa-star glowing"></i>
-                        <p id="lengthReview">{{review.length}} Reviews</p>
-                    </div>
-
-
-                    <div class="rating-levels" id="rating-levels">
-                        <!-- The rating levels will be dynamically added here -->
-                    </div>
-
-                </div>
-
-
-                {{!-- <div class="container">
-                    {{#each review}}
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <img class="avatar"
-                                    src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
-                                    alt="Avatar">
-                                <div class="name">{{name}}</div>
+                <div class="col-lg-12 mb-4">
+                    <div class="container review-section">
+                        <div class="review-info">
+                            <div class="rating">
+                                <p id="averageCount"></p>
+                                <i id="starAverage" class="fas fa-star glowing"></i>
                             </div>
-
-                            <div class="review-date">{{reviewDate}}</div>
+                            <p id="lengthReview">{{review.length}} Reviews</p>
                         </div>
-                        <div class="review-content">
-                            <p>{{review}}</p>
-                        </div>
-                        <div class="rating">
-                            <i id="1" class="fas fa-star"></i>
-                            <i id="2" class="fas fa-star"></i>
-                            <i id="3" class="fas fa-star"></i>
-                            <i id="4" class="fas fa-star"></i>
-                            <i id="5" class="far fa-star"></i>
-                            <div class="rating-value">{{rating}}</div>
+                        <div class="rating-levels" id="rating-levels">
+                            <!-- The rating levels will be dynamically added here -->
                         </div>
                     </div>
-                    {{/each}}
-                </div> --}}
-
-                <style>
-
-                </style>
-                <div class="container" style="overflow: scroll; max-height: 600px;">
-                    {{#each review}}
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="reviewer-info">
-                                <img class="avatar"
-                                    src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
-                                    alt="Avatar">
-                                <div class="name">{{name}}</div>
-                            </div>
-                            <div class="review-date">{{reviewDate}}</div>
-                        </div>
-                        <div class="review-content">
-                            <p>{{review}}</p>
-                        </div>
-                        <div class="text-warning mb-1 me-2">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span class="ms-1" style="width: 37rem; display: flex;">
-                                <p>{{rating}}<i class="fas fa-star"></i></p>
-                            </span>
-                        </div>
-
-                    </div>
-
-
-
-                    {{/each}}
                 </div>
 
 
 
+                <div class="col-lg-12 mb-4">
+                    <div class="container">
+                        <div class="review-container" style="max-height: 600px; overflow-y: auto;">
+                            {{#each review}}
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <img class="avatar"
+                                            src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
+                                            alt="Avatar">
+                                        <div class="name">{{name}}</div>
+                                    </div>
+                                    <div class="review-date">{{reviewDate}}</div>
+                                </div>
+                                <div class="review-content">
+                                    <p>{{review}}</p>
+                                </div>
+                                <div class="text-warning mb-1 me-2">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="ms-1">
+                                        <p>{{rating}}<i class="fas fa-star"></i></p>
+                                    </span>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <style>
-                    .hidden {
-                        display: none;
-                    }
-                </style>
 
 
 
-                <script>
-                    // Get the quantity-related elements
-                    var quantityInput = document.getElementById("quantity");
-                    var minusButton = document.querySelector(".qty-count--minus");
-                    var plusButton = document.querySelector(".qty-count--add");
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 
-                    // Add event listeners for the minus and plus buttons
-                    minusButton.addEventListener("click", function () {
-                        decreaseQuantity();
-                    });
 
-                    plusButton.addEventListener("click", function () {
-                        increaseQuantity();
-                    });
 
-                    // Function to decrease the quantity
-                    function decreaseQuantity() {
-                        var currentValue = parseInt(quantityInput.value);
-                        if (currentValue > 0) {
-                            quantityInput.value = currentValue - 1;
-                        }
-                    }
+    <script>
+        // Get the quantity-related elements
+        var quantityInput = document.getElementById("quantity");
+        var minusButton = document.querySelector(".qty-count--minus");
+        var plusButton = document.querySelector(".qty-count--add");
 
-                    // Function to increase the quantity
-                    function increaseQuantity() {
-                        var currentValue = parseInt(quantityInput.value);
-                        if (currentValue < 10) {
-                            quantityInput.value = currentValue + 1;
-                        }
-                    }
+        // Add event listeners for the minus and plus buttons
+        minusButton.addEventListener("click", function () {
+            decreaseQuantity();
+        });
 
-                </script>
+        plusButton.addEventListener("click", function () {
+            increaseQuantity();
+        });
 
-                <script>
-                    const stars = document.querySelectorAll('.fa-star');
+        // Function to decrease the quantity
+        function decreaseQuantity() {
+            var currentValue = parseInt(quantityInput.value);
+            if (currentValue > 0) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
 
-                    const averagecount = parseInt("{{product.rating}}")
-                    stars.forEach((star, index) => {
-                        if (index < averagecount) {
-                            star.classList.add('glowing');
-                        }
-                    });
+        // Function to increase the quantity
+        function increaseQuantity() {
+            var currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        }
 
-                </script>
+    </script>
 
-                <script>
-                    const stock = document.getElementById("stock")
-                    const unstock = document.getElementById("unstock")
-                    const saleicon = document.getElementById("saleicon")
-                    const outofstock = document.getElementById("outofstock")
-                    const stockcount = parseInt("{{remainingStock}}")
+    <script>
+        const stars = document.querySelectorAll('.fa-star');
 
-                    if (stockcount === 0) {
-                        stock.style.display = "none"
-                        unstock.style.display = "block"
-                        saleicon.style.display = "none"
-                        outofstock.style.display = "block"
+        const averagecount = parseInt("{{product.rating}}")
+        stars.forEach((star, index) => {
+            if (index < averagecount) {
+                star.classList.add('glowing');
+            }
+        });
 
+    </script>
+
+    <script>
+        const stock = document.getElementById("stock")
+        const unstock = document.getElementById("unstock")
+        const saleicon = document.getElementById("saleicon")
+        const outofstock = document.getElementById("outofstock")
+        const stockcount = parseInt("{{remainingStock}}")
+
+        if (stockcount === 0) {
+            stock.style.display = "none"
+            unstock.style.display = "block"
+            saleicon.style.display = "none"
+            outofstock.style.display = "block"
+
+        } else {
+            unstock.style.display = "none"
+            stock.style.display = "block"
+            saleicon.style.display = "block"
+            outofstock.style.display = "none"
+        }
+    </script>
+
+
+
+    <script>
+        const ratingCount = {
+            5: parseInt("{{ratingCount5}}"),
+            4: parseInt("{{ratingCount4}}"),
+            3: parseInt("{{ratingCount3}}"),
+            2: parseInt("{{ratingCount2}}"),
+            1: parseInt("{{ratingCount1}}")
+        };
+
+        console.log(5)
+
+        let sum = 0;
+        let total = 0;
+
+        for (let rating in ratingCount) {
+            const count = ratingCount[rating];
+            sum += parseInt(rating) * count;
+            total += count;
+        }
+
+        const average = total > 0 ? sum / total : 0;
+        document.getElementById('averageCount').innerHTML = average.toFixed(1);
+    </script>
+
+
+
+    <script>
+        // Rating counts
+
+        const averageCount = document.getElementById("averageCount")
+        const ratingCounts = {
+            5: " {{ratingCount5}}",
+            4: "{{ratingCount4}}",
+            3: " {{ratingCount3}}",
+            2: "{{ratingCount2}}",
+            1: "{{ratingCount1}}"
+        };
+
+
+        // Color levels
+        const colorLevels = {
+            5: '#00aaff',
+            4: '#2ecc71',
+            3: '#f1c40f',
+            2: '#e67e22',
+            1: '#e74c3c'
+        };
+
+
+
+
+        // Generate HTML for each rating level
+        function generateRatingLevels() {
+            const ratingLevelsContainer = document.getElementById('rating-levels');
+            ratingLevelsContainer.innerHTML = '';
+
+            for (let i = 5; i >= 1; i--) {
+                const ratingLevel = document.createElement('div');
+                ratingLevel.classList.add('rating-level');
+
+                const levelCount = document.createElement('p');
+                levelCount.classList.add('level-count');
+                levelCount.textContent = i + '★';
+                ratingLevel.appendChild(levelCount);
+
+                const levelProgress = document.createElement('div');
+                levelProgress.classList.add('level-progress');
+
+                const progress = document.createElement('div');
+                progress.classList.add('progress');
+                progress.style.width = (ratingCounts[i] / 100 * 100) + '%';
+                progress.style.backgroundColor = colorLevels[i];
+                levelProgress.appendChild(progress);
+
+                ratingLevel.appendChild(levelProgress);
+
+                const count = document.createElement('p');
+                count.classList.add('count');
+                count.textContent = ratingCounts[i];
+                ratingLevel.appendChild(count);
+
+                ratingLevelsContainer.appendChild(ratingLevel);
+            }
+        }
+
+        // Initial generation of rating levels
+        generateRatingLevels();
+    </script>
+
+
+
+    <script>
+        // Get all the star elements
+        const starElements = document.querySelectorAll('.star');
+
+        // Handle the click event for each star
+        starElements.forEach(starElement => {
+            starElement.addEventListener('click', () => {
+                const rating = parseInt(starElement.getAttribute('data-rating'));
+
+                // Calculate the percentage
+                const percentage = rating * 20;
+
+                // Set the value of the hidden input
+                const ratingInput = document.getElementById('ratingInput');
+                ratingInput.value = rating;
+
+                // Update the star ratings display
+                starElements.forEach(star => {
+                    const starRating = parseInt(star.getAttribute('data-rating'));
+                    const starIcon = star.querySelector('i');
+
+                    if (starRating <= rating) {
+                        starIcon.classList.remove('far');
+                        starIcon.classList.add('fas');
                     } else {
-                        unstock.style.display = "none"
-                        stock.style.display = "block"
-                        saleicon.style.display = "block"
-                        outofstock.style.display = "none"
+                        starIcon.classList.remove('fas');
+                        starIcon.classList.add('far');
                     }
-                </script>
+                });
+
+                // Update the percentage display
+                const percentageElement = document.getElementById('percentage');
+                percentageElement.textContent = `${percentage}%`;
+            });
+        });
+    </script>
 
 
+    <script>
+        // Get form elements
+        const reviewForm = document.querySelector('.reviewform');
+        const errorContainer = document.querySelector('.errorcontainer');
+        const thankYouContainer = document.querySelector('.thank-you-container');
 
-                     <script>
-                    const ratingCount = {
-                        5: parseInt("{{ratingCount5}}"),
-                        4: parseInt("{{ratingCount4}}"),
-                        3: parseInt("{{ratingCount3}}"),
-                        2: parseInt("{{ratingCount2}}"),
-                        1: parseInt("{{ratingCount1}}")
-                    };
+        // Add event listener to form submit
+        reviewForm.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-                    console.log(5)
+            // Perform custom validation here, e.g., check if the review is legible
+            const reviewInput = document.getElementById('review');
+            const review = reviewInput.value;
+            if (!isLegible(review)) {
+                showError('Your review must be legible! Try again!');
+                return;
+            }
 
-                    let sum = 0;
-                    let total = 0;
+            // Submit the form if validation passes
+            submitForm();
+        });
 
-                    for (let rating in ratingCount) {
-                        const count = ratingCount[rating];
-                        sum += parseInt(rating) * count;
-                        total += count;
-                    }
+        // Custom validation function
+        function isLegible(review) {
+            // Add your validation logic here
+            return review.trim().length > 0;
+        }
 
-                    const average = total > 0 ? sum / total : 0;
-                    document.getElementById('averageCount').innerHTML = average.toFixed(1);
-                </script>
+        // Show error message
+        function showError(errorMessage) {
+            errorContainer.classList.remove('d-none');
+            errorContainer.querySelector('.error').textContent = errorMessage;
+        }
 
-
-
-                <script>
-                    // Rating counts
-
-                    const averageCount = document.getElementById("averageCount")
-                    const ratingCounts = {
-                        5: " {{ratingCount5}}",
-                        4: "{{ratingCount4}}",
-                        3: " {{ratingCount3}}",
-                        2: "{{ratingCount2}}",
-                        1: "{{ratingCount1}}"
-                    };
-
-
-                    // Color levels
-                    const colorLevels = {
-                        5: '#00aaff',
-                        4: '#2ecc71',
-                        3: '#f1c40f',
-                        2: '#e67e22',
-                        1: '#e74c3c'
-                    };
+        // Submit the form and show thank you message
+        function submitForm() {
+            // Perform form submission here, e.g., using AJAX or by redirecting to another page
+            // After successful submission, show the thank you message
+            thankYouContainer.classList.remove('d-none');
+            reviewForm.reset();
+        }
+    </script>
 
 
+    <script>
+        function increaseValue() {
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('number').value = value;
+        }
+
+        function decreaseValue() {
+            var value = parseInt(document.getElementById('number').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value < 1 ? value = 1 : '';
+            value--;
+            document.getElementById('number').value = value;
+        }
 
 
-                    // Generate HTML for each rating level
-                    function generateRatingLevels() {
-                        const ratingLevelsContainer = document.getElementById('rating-levels');
-                        ratingLevelsContainer.innerHTML = '';
-
-                        for (let i = 5; i >= 1; i--) {
-                            const ratingLevel = document.createElement('div');
-                            ratingLevel.classList.add('rating-level');
-
-                            const levelCount = document.createElement('p');
-                            levelCount.classList.add('level-count');
-                            levelCount.textContent = i + '★';
-                            ratingLevel.appendChild(levelCount);
-
-                            const levelProgress = document.createElement('div');
-                            levelProgress.classList.add('level-progress');
-
-                            const progress = document.createElement('div');
-                            progress.classList.add('progress');
-                            progress.style.width = (ratingCounts[i] / 100 * 100) + '%';
-                            progress.style.backgroundColor = colorLevels[i];
-                            levelProgress.appendChild(progress);
-
-                            ratingLevel.appendChild(levelProgress);
-
-                            const count = document.createElement('p');
-                            count.classList.add('count');
-                            count.textContent = ratingCounts[i];
-                            ratingLevel.appendChild(count);
-
-                            ratingLevelsContainer.appendChild(ratingLevel);
-                        }
-                    }
-
-                    // Initial generation of rating levels
-                    generateRatingLevels();
-                </script>
-
-
-
-                <script>
-                    // Get all the star elements
-                    const starElements = document.querySelectorAll('.star');
-
-                    // Handle the click event for each star
-                    starElements.forEach(starElement => {
-                        starElement.addEventListener('click', () => {
-                            const rating = parseInt(starElement.getAttribute('data-rating'));
-
-                            // Calculate the percentage
-                            const percentage = rating * 20;
-
-                            // Set the value of the hidden input
-                            const ratingInput = document.getElementById('ratingInput');
-                            ratingInput.value = rating;
-
-                            // Update the star ratings display
-                            starElements.forEach(star => {
-                                const starRating = parseInt(star.getAttribute('data-rating'));
-                                const starIcon = star.querySelector('i');
-
-                                if (starRating <= rating) {
-                                    starIcon.classList.remove('far');
-                                    starIcon.classList.add('fas');
-                                } else {
-                                    starIcon.classList.remove('fas');
-                                    starIcon.classList.add('far');
-                                }
-                            });
-
-                            // Update the percentage display
-                            const percentageElement = document.getElementById('percentage');
-                            percentageElement.textContent = `${percentage}%`;
-                        });
-                    });
-                </script>
-
-
-                <script>
-                    // Get form elements
-                    const reviewForm = document.querySelector('.reviewform');
-                    const errorContainer = document.querySelector('.errorcontainer');
-                    const thankYouContainer = document.querySelector('.thank-you-container');
-
-                    // Add event listener to form submit
-                    reviewForm.addEventListener('submit', function (event) {
-                        event.preventDefault();
-
-                        // Perform custom validation here, e.g., check if the review is legible
-                        const reviewInput = document.getElementById('review');
-                        const review = reviewInput.value;
-                        if (!isLegible(review)) {
-                            showError('Your review must be legible! Try again!');
-                            return;
-                        }
-
-                        // Submit the form if validation passes
-                        submitForm();
-                    });
-
-                    // Custom validation function
-                    function isLegible(review) {
-                        // Add your validation logic here
-                        return review.trim().length > 0;
-                    }
-
-                    // Show error message
-                    function showError(errorMessage) {
-                        errorContainer.classList.remove('d-none');
-                        errorContainer.querySelector('.error').textContent = errorMessage;
-                    }
-
-                    // Submit the form and show thank you message
-                    function submitForm() {
-                        // Perform form submission here, e.g., using AJAX or by redirecting to another page
-                        // After successful submission, show the thank you message
-                        thankYouContainer.classList.remove('d-none');
-                        reviewForm.reset();
-                    }
-                </script>
-
-
-                <script>
-                    function increaseValue() {
-                        var value = parseInt(document.getElementById('number').value, 10);
-                        value = isNaN(value) ? 0 : value;
-                        value++;
-                        document.getElementById('number').value = value;
-                    }
-
-                    function decreaseValue() {
-                        var value = parseInt(document.getElementById('number').value, 10);
-                        value = isNaN(value) ? 0 : value;
-                        value < 1 ? value = 1 : '';
-                        value--;
-                        document.getElementById('number').value = value;
-                    }
-
-
-                </script>
+    </script>
 
 
 
 
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-                    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 
 </body>
 
