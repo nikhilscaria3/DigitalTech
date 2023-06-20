@@ -122,7 +122,7 @@ exports.postUser = async (req, res) => {
       // Send an email to the user with the OTP
       const mailOptions = {
         from: 'nikhilscaria3@gmail.com',
-        to: 'bofmjddiu@internetkeno.com',
+        to: req.body.email,
         subject: 'Email verification OTP',
         text: `Your OTP is ${otp}`,
       };
@@ -185,7 +185,7 @@ exports.resendOTP = async (req, res) => {
     const mailOptions = {
       from: 'nikhilscaria3@gmail.com',
       // to: user.email,
-      to: "bofmjddiu@internetkeno.com",
+      to: req.body.email,
       subject: 'Email verification OTP',
       text: `Your new OTP is ${otp}`,
     };
