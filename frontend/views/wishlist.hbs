@@ -142,60 +142,57 @@
     </header>
 
     <div class="cart-wrap">
-
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="main-heading mt-5 mb-10">My wishlist</div>
-                    <div class="table-wishlist">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <div class="table-responsive">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th width="45%">Product Name</th>
-                                    <th width="15%">Unit Price</th>
-                                    <th width="15%">Stock Status</th>
-                                    <th width="15%"></th>
-                                    <th width="10%"></th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Unit Price</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each images}}
                                 <tr>
-                                    <td width="45%">
-                                        <div class="display-flex align-center">
+                                    <td>
+                                        <div class="d-flex align-items-center">
                                             <div class="img-product">
-
-                                                <!-- Access the images loop outside the wishlist loop -->
                                                 {{#if this.image}}
                                                 <img src="/{{image.filepath}}" alt="{{image.title}}"
                                                     style="width: 4rem">
                                                 {{else}}
                                                 <p>No image available</p>
                                                 {{/if}}
-
                                             </div>
-                                            <div class="name-product">
-                                                {{this.productname}}
+                                            <div class="name-product">{{this.productname}}</div>
+                                        </div>
+                                    </td>
+                                    <td>{{this.saleprice}}</td>
+                                    <td>
+                                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+                                            <span class="in-stock-box">In Stock</span>
+                                            <a href="/cart" class="btn btn-dark" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop">
+                                                Add to Cart
+                                            </a>
+                                            <div class="d-flex mt-2 mt-sm-0">
+                                                <a href="#" class="btn trash-icon" data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdrop">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a href="/wishlist?delete_id={{this._id}}" class="btn"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                    <box-icon name='trash'></box-icon>
+                                                </a>
                                             </div>
                                         </div>
                                     </td>
-                                    <td width="15%" class="price">{{this.saleprice}}</td>
-                                    <td width="15%"><span class="in-stock-box">In Stock</span></td>
-                                    <td><button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop">
-                                            <a href="/cart" class="text-light  " data-delete>Add to Cart</a>
-                                        </button></td>
-                                    <td width="10%" class="text-center"><a href="#" class="trash-icon"><i
-                                                class="far fa-trash-alt"></i></a></td>
-                                    <td><button type="button" class="btn " data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop">
-                                            <a href="/wishlist?delete_id={{this._id}}" class="text-light "
-                                                data-delete><box-icon name='trash'></box-icon></a>
-                                        </button></td>
                                 </tr>
                                 {{/each}}
-
                             </tbody>
                         </table>
                     </div>
@@ -203,6 +200,8 @@
             </div>
         </div>
     </div>
+
+
     <script>
         $('.btn').on('click', function () {
             var $this = $(this);
