@@ -501,27 +501,45 @@
         }
     </script>
 
-    <script>
-        var sidebar = document.getElementById('sidebar');
-        var hamButton = document.getElementById('hambutton');
+ <script>
+        // JavaScript code for handling the button click and window resize events
 
-        hamButton.addEventListener('click', function () {
+        // Function to toggle the offcanvas class on the sidebar
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('offcanvas');
-        });
+        }
 
-        window.addEventListener('resize', function () {
+        // Function to handle the button click event
+        function handleButtonClick() {
+            toggleSidebar();
+        }
+
+        // Function to handle the window resize event
+        function handleWindowResize() {
+            var sidebar = document.getElementById('sidebar');
+            var content = document.getElementById('content');
+            var hambutton = document.getElementById('hambutton');
+
             if (window.innerWidth < 768) {
                 sidebar.classList.add('offcanvas');
-                document.getElementById("content").classList.add('contents');
-                hamButton.style.display = "block";
+                content.classList.add('contents');
+                hambutton.style.display = "block";
             } else {
                 sidebar.classList.remove('offcanvas');
-                document.getElementById("content").classList.remove('contents');
-                document.getElementById('hambutton').style.display = "none";
+                content.classList.remove('contents');
+                hambutton.style.display = "none";
             }
-        });
-    </script>
+        }
 
+        // Add event listeners
+        var hamButton = document.getElementById('hambutton');
+        hamButton.addEventListener('click', handleButtonClick);
+        window.addEventListener('resize', handleWindowResize);
+
+        // Initial setup on page load
+        handleWindowResize();
+    </script>
 
 </body>
 
