@@ -126,13 +126,13 @@
     margin-top: 40px !important; 
 }
 .in-stock-box {
-	background: #ff0000;
-	font-size: 12px;
-	text-align: center;
-	border-radius: 25px;
-	padding: 4px 15px;
-	display: inline-block;  
+    background: #ff0000;
+    text-align: center;
+    border-radius: 25px;
+    padding: 9px 15px;
+    display: inline-block;
     color: #fff;
+
 }
 .trash-icon {
     font-size: 20px;
