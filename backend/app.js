@@ -13,15 +13,23 @@ const connectDatabase = require('../backend/config/database.js');
 const dotenv = require('dotenv');
 dotenv.config({path:path.join(__dirname,"config/config.env")});
 
+const http = require('http');
+const socketIO = require('socket.io');
+
+
 const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
+
 mongoose.set('debug', true);
 
 connectDatabase();
 
-app.listen(process.env.PORT,()=>{
-    console.log(`My Server listening to the port: ${process.env.PORT} in  ${process.env.NODE_ENV} `)
-})
-
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+  console.log(`My Server listening to the port: ${process.env.PORT} in  ${process.env.NODE_ENV} `)
+});
 
 const MongoDbStore = connectMongoDbSession(session);
 const defaultDbUri = "mongodb+srv://nikhilscaria3:uzlfuyj2RfRbDdEa@global.lzwsydh.mongodb.net/?retryWrites=true&w=majority";
@@ -125,7 +133,7 @@ const smartphoneroutes = require('./routes/smartphoneroute');
 const productroute = require('./routes/productpageroute');
 const salesRoutes = require('./routes/saleroute');
 const messageRoutes = require('./routes/messageRoute.js');
-
+const messageController = require('./controllers/chatController.js')
 
 app.use('/', salesRoutes);
 app.use('/', forget)
@@ -144,6 +152,19 @@ app.use('/', productroute);
 // app.use('/auth', authRoutes);
 app.use('/',messageRoutes)
 
+// Set up socket.io event handling
+io.on('connection', (socket) => {
+  console.log('User connected');
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+    messageController.handleDisconnect();
+  });
+
+  socket.on('send_message', (data) => {
+    messageController.sendMessage(data, io);
+  });
+});
 
 app.get('/error', (req, res) => {
   res.render('error')
