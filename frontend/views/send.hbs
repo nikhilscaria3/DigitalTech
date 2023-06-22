@@ -52,9 +52,9 @@
         }
 
         /* Chat messages */
-        .chat-messages {
-            max-height: 400px;
-            overflow-y: auto;
+        #chat-messages {
+            max-height: 500px;
+            overflow-y: scroll;
             padding: 15px;
         }
 
@@ -170,7 +170,7 @@
 
 <body>
 
-       <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="/image/Gold Luxury Initial Circle Logo (1).png" alt="Logo" width="30" height="24"
@@ -238,39 +238,66 @@
                     </li>
                 </ul>
                 <ul><a href="/profile" class="profile">
-                        <img style="width:4rem" class="navimage" src="/image/Gold Luxury Initial Circle Logo (1).png">
+                        <img style="width:2rem" class="navimage" src="/image/Gold Luxury Initial Circle Logo (1).png">
                     </a></ul>
 
             </div>
         </div>
     </nav>
-
-
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>Chat App</h1>
-            <i class="fas fa-ellipsis-v"></i>
-        </div>
-        <div id="chat-messages" class="mb-4">
-            {{#each send}}
-            <div class="message">
-                <p><strong>{{../names}}</strong>: {{this.content}}</p>
-            </div>
-            {{/each}}
-        </div>
-
-        <form id="chat-form">
-            <div class="input-group mb-3">
-                <input type="text" id="sender-input" class="form-control" value="{{names}}" readonly>
-                <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </form>
-
-
-
-
+<div class="chat-container">
+    <div class="chat-header">
+        <h1>Chat App</h1>
+        <i class="fas fa-ellipsis-v"></i>
     </div>
+    <div id="chat-messages" class="mb-4">
+        {{#each send}}
+        <div class="message {{this.senderClass}}">
+            <p><strong>{{this.sender}}</strong>: {{this.content}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <form id="chat-form">
+        <div class="input-group mb-3">
+            <input type="text" id="sender-input" class="form-control" value="{{names}}" readonly>
+            <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .message {
+        margin-bottom: 10px;
+    }
+
+    .admin-message {
+        text-align: end;
+    }
+
+    .user-message {
+        text-align: start;
+    }
+</style>
+
+<script>
+    // Retrieve the chat messages container
+    var chatMessages = document.getElementsByClassName('message');
+
+    for (var i = 0; i < chatMessages.length; i++) {
+        var senderElement = chatMessages[i].getElementsByTagName('strong')[0];
+        var senderName = senderElement.textContent.trim();
+        console.log(senderName); // Log the name of the sender
+
+        if (senderName == 'admin') {
+            chatMessages[i].classList.add('admin-message');
+        } else {
+            chatMessages[i].classList.add('user-message');
+        }
+    }
+</script>
+
+
 
     <!-- Add your JavaScript file(s) -->
     <script src="/socket.io/socket.io.js"></script>
