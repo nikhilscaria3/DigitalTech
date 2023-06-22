@@ -124,6 +124,8 @@ const laptoproutes = require('./routes/laptoproute');
 const smartphoneroutes = require('./routes/smartphoneroute');
 const productroute = require('./routes/productpageroute');
 const salesRoutes = require('./routes/saleroute');
+const messageRoutes = require('./routes/messageRoute.js');
+
 
 app.use('/', salesRoutes);
 app.use('/', forget)
@@ -140,7 +142,7 @@ app.use('/', laptoproutes);
 app.use('/', smartphoneroutes);
 app.use('/', productroute);
 // app.use('/auth', authRoutes);
-
+app.use('/',messageRoutes)
 
 
 app.get('/error', (req, res) => {
