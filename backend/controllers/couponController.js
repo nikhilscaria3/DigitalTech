@@ -65,6 +65,11 @@ exports.getCouponAdmin = async (req, res) => {
         console.log(req.query.edit_id);
         console.log("data", editdata);
 
+        if (req.query.delete_id) {
+            await Coupon.findByIdAndDelete(req.query.delete_id);
+            return res.redirect('/couponadmin');
+        }
+
         res.render('couponadd', { coupon: coupons, editdata: editdata || {} });
     } catch (err) {
         console.log(err);
