@@ -15,7 +15,7 @@ const setUserId = (req, res, next) => {
 };
 
 // GET home page
-router.get('/send', setUserId, messageController.getSendPage);
+router.get('/chat', setUserId, messageController.getSendPage);
 
 // GET receiver page
 router.get('/receive', setUserId, messageController.getReceiverPage);
