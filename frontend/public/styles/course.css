@@ -75,7 +75,7 @@ a:hover {
 }
 
 
-.message {
+/* .message {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -90,7 +90,7 @@ a:hover {
   100% {
     opacity: 0;
   }
-}
+} */
 
 
 box-icon {
