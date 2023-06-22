@@ -56,6 +56,7 @@
             max-height: 500px;
             overflow-y: scroll;
             padding: 15px;
+            background-color: #f1eded;
         }
 
         .message {
@@ -244,61 +245,88 @@
             </div>
         </div>
     </nav>
-<div class="chat-container">
-    <div class="chat-header">
-        <h1>Chat App</h1>
-        <i class="fas fa-ellipsis-v"></i>
-    </div>
-    <div id="chat-messages" class="mb-4">
-        {{#each send}}
-        <div class="message {{this.senderClass}}">
-            <p><strong>{{this.sender}}</strong>: {{this.content}}</p>
-        </div>
-        {{/each}}
-    </div>
 
-    <form id="chat-form">
-        <div class="input-group mb-3">
-            <input type="text" id="sender-input" class="form-control" value="{{names}}" readonly>
-            <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </form>
-</div>
 
-<style>
-    .message {
-        margin-bottom: 10px;
-    }
-
-    .admin-message {
-        text-align: end;
-    }
-
-    .user-message {
-        text-align: start;
-    }
-</style>
-
-<script>
-    // Retrieve the chat messages container
-    var chatMessages = document.getElementsByClassName('message');
-
-    for (var i = 0; i < chatMessages.length; i++) {
-        var senderElement = chatMessages[i].getElementsByTagName('strong')[0];
-        var senderName = senderElement.textContent.trim();
-        console.log(senderName); // Log the name of the sender
-
-        if (senderName == 'admin') {
-            chatMessages[i].classList.add('admin-message');
-        } else {
-            chatMessages[i].classList.add('user-message');
+    <style>
+        .message {
+            margin-bottom: 10px;
         }
-    }
-</script>
 
+        p {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0;
+        }
 
+        .admin-message {
+            text-align: right;
+        }
 
+        .user-message {
+            text-align: left;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Custom message background colors */
+        .short-message {
+            background-color: #e2e2e2;
+        }
+
+        .medium-message {
+            background-color: #ccc;
+        }
+
+        .long-message {
+            background-color: #999;
+            color: white;
+        }
+
+        .message-content {
+            white-space: nowrap;
+            word-break: break-word;
+        }
+    </style>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chat App</h1>
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+        <ul id="chat-messages" class="mb-4">
+            {{#each send}}
+            <li class="message">
+                <p class="message-content"><strong>{{this.sender}}</strong>: {{this.content}}</p>
+            </li>
+            {{/each}}
+        </ul>
+
+        <form id="chat-form">
+            <div class="input-group mb-3">
+                <input type="text" id="sender-input" class="form-control" value="{{names}}" readonly>
+                <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const messageContentElements = document.querySelectorAll('.message-content');
+        messageContentElements.forEach((element) => {
+            const contentLength = element.textContent.length;
+            if (contentLength < 10) {
+                element.classList.add('short-message');
+            } else if (contentLength >= 10 && contentLength < 20) {
+                element.classList.add('medium-message');
+            } else {
+                element.classList.add('long-message');
+            }
+        });
+
+    </script>
     <!-- Add your JavaScript file(s) -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/script.js"></script>
@@ -308,10 +336,20 @@
             const socket = io();
 
             // Get references to HTML elements
-            const chatForm = document.getElementById('chat-form');
-            const senderInput = document.getElementById('sender-input');
-            const messageInput = document.getElementById('message-input');
             const chatMessages = document.getElementById('chat-messages');
+
+            // Function to add a new message to the chat messages area
+            const addMessageToChat = (message) => {
+                const messageElement = document.createElement('li');
+                messageElement.classList.add('message');
+                if (message.sender === 'admin') {
+                    messageElement.classList.add('admin-message');
+                } else {
+                    messageElement.classList.add('user-message');
+                }
+                messageElement.innerHTML = `<p><strong>${message.sender}</strong>: ${message.content}</p>`;
+                chatMessages.appendChild(messageElement);
+            };
 
             // Function to fetch and update chat messages
             const updateChatMessages = async () => {
@@ -323,10 +361,7 @@
 
                 // Add fetched messages to the chat messages area
                 messages.forEach((message) => {
-                    const messageElement = document.createElement('div');
-                    messageElement.classList.add('message');
-                    messageElement.innerHTML = `<p><strong>${message.sender}</strong>: ${message.content}</p>`;
-                    chatMessages.appendChild(messageElement);
+                    addMessageToChat(message);
                 });
             };
 
@@ -334,21 +369,23 @@
             updateChatMessages();
 
             // Handle sending messages
+            const chatForm = document.getElementById('chat-form');
             chatForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
 
                 // Get the sender, receiver, and content from the inputs
-                const sender = senderInput.value.trim();
+                const sender = document.getElementById('sender-input').value.trim();
                 const receiver = 'defaultReceiver'; // Modify this as needed
-                const content = messageInput.value.trim();
-                const userSession = '{{userSession}}'
+                const content = document.getElementById('message-input').value.trim();
+                const userSession = '{{userSession}}';
+
                 // Check if sender and message content are not empty
                 if (sender && content) {
                     // Emit the send_message event to the server
                     socket.emit('send_message', { sender, receiver, content, userSession });
 
                     // Clear the message input field
-                    messageInput.value = '';
+                    document.getElementById('message-input').value = '';
 
                     // Update chat messages after sending
                     await updateChatMessages();
@@ -358,14 +395,12 @@
             // Handle receiving messages
             socket.on('receive_message', async (message) => {
                 // Add the received message to the chat messages area
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.innerHTML = `<p><strong>${message.sender}</strong>: ${message.content}</p>`;
-                chatMessages.appendChild(messageElement);
+                addMessageToChat(message);
             });
         });
 
     </script>
+
 </body>
 
 </html>
