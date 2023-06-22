@@ -4,25 +4,23 @@ const { Message } = require('../models/messageModel');
 exports.getSendPage = async (req, res) => {
     try {
         const userSession = res.locals.userSession;
-        const messages = await Message.find({ "userSession": userSession }).populate('userSession', 'username');
+        const message = await Message.findOne({ "userSession": userSession }).populate('userSession', 'username');
 
-        const send = messages.map((message) => {
-            return {
-                sender: message.userSession.username,
-                content: message.content,
-                senderClass: message.userSession.username === 'admin' ? 'admin-message' : 'user-message'
-            };
-        });
 
-        const names = messages.length > 0 ? messages[0].userSession.username : '';
+        const send = await Message.find({ "userSession": userSession  });
 
+        const names = message ? message.userSession.username : '';
+      
+        console.log(names);
         res.render('send', { send, names });
+
+        console.log(send);
+
     } catch (error) {
         console.error('Error retrieving messages', error);
         res.status(500).json({ error: 'Error retrieving messages' });
     }
 };
-
 
 
 // Controller action to render the receiver page
