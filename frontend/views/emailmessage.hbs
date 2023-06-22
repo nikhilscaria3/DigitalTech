@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Email Message App</title>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- My CSS -->
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Duru+Sans|Actor' rel='stylesheet' type='text/css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <!--Bootshape-->
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/course.css">
+
+    <style>
+        /* Styles for the app container */
+        .app-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Styles for the header */
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h1 {
+            color: #333;
+        }
+
+        /* Styles for the email list */
+        .email-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .email-list li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .email-list li:last-child {
+            border-bottom: none;
+        }
+
+        .email-list li:hover {
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .email-list li .sender {
+            font-weight: bold;
+        }
+
+        .email-list li .subject {
+            color: #777;
+        }
+
+        /* Styles for the email content */
+        .email-content {
+            margin-top: 20px;
+        }
+
+        .email-content h2 {
+            color: #333;
+        }
+
+        .email-content .sender {
+            font-weight: bold;
+        }
+
+        .email-content .timestamp {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .email-content .message {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        /* Styles for the send email form */
+        .send-email-form {
+            margin-top: 20px;
+        }
+
+        .send-email-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .send-email-form input[type="text"],
+        .send-email-form textarea {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .send-email-form input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        /* Styles for the footer */
+        .app-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .app-footer p {
+            color: #777;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+     <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">AdminPortal</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="/admin" class="">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text cart-link">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/product">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text cart-link">Product</span>
+                </a>
+            </li>
+            <li>
+                <a href="/users">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text cart-link">Customers</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminorder">
+                    <i class='bx bxs-message-dots'></i>
+                    <span class="text cart-link">Order</span>
+                </a>
+            </li>
+            <li>
+                <a href="/sale-reports">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="/transactions">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Transactions</span>
+                </a>
+            </li>
+            <li>
+                <a href="/couponadmin">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Coupons</span>
+                </a>
+            </li>
+            <li>
+                <a href="/create-banner">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Banner</span>
+                </a>
+            </li>
+              <li>
+                <a href="/send-w=email">
+                    <i class='bx bxs-group'></i>
+                    <span class="text cart-link">Email</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <i class='bx bxs-cog'></i>
+                    <span class="text cart-link">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="/signout" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text cart-link">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <a href="/category" class="nav-link">Categories</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class='bx bxs-bell'></i>
+                <span class="num">8</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="img/people.png">
+            </a>
+        </nav>
+
+
+    <div class="app-container">
+        <div class="app-header">
+            <h1>Email Message App</h1>
+        </div>
+        <form class="send-email-form" action="/send-email" method="post">
+            <label for="sender-name">Your Name:</label>
+            <input type="text" id="sender-name" name="senderName" required>
+
+            <label for="sender-email">Your Email:</label>
+            <input type="email" id="sender-email" name="senderEmail" required>
+
+            <label for="email-subject">Subject:</label>
+            <input type="text" id="email-subject" name="emailSubject" required>
+
+            <label for="email-message">Message:</label>
+            <textarea id="email-message" name="emailMessage" rows="5" required></textarea>
+
+            <input type="submit" value="Send Email">
+        </form>
+
+        <div class="app-footer">
+            <p>Email Message App - © 2023</p>
+        </div>
+    </div>
+</body>
+
+</html>

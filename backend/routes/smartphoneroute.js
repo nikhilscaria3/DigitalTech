@@ -3,14 +3,6 @@ const express = require('express');
 const router = express.Router();
 const smartphoneController = require('../controllers/smartphonecontroller');
 
-const goToLoginIfNotAuth = (req, res, next) => {
-    if (req.session.loggedIn) {
-        next()
-    } else {
-        res.redirect("/login")
-    }
-};
-
 const setUserId = (req, res, next) => {
     if (req.session.loggedIn && req.session.usersession) {
         res.locals.userSession = req.session.usersession.toString(); // Convert ObjectId to string

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Email Message App</title>
+    <style>
+        /* Styles for the app container */
+        .app-container {
+            width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Styles for the header */
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h1 {
+            color: #333;
+        }
+
+        /* Styles for the email list */
+        .email-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .email-list li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .email-list li:last-child {
+            border-bottom: none;
+        }
+
+        .email-list li:hover {
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .email-list li .sender {
+            font-weight: bold;
+        }
+
+        .email-list li .subject {
+            color: #777;
+        }
+
+        /* Styles for the email content */
+        .email-content {
+            margin-top: 20px;
+        }
+
+        .email-content h2 {
+            color: #333;
+        }
+
+        .email-content .sender {
+            font-weight: bold;
+        }
+
+        .email-content .timestamp {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .email-content .message {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        /* Styles for the send email form */
+        .send-email-form {
+            margin-top: 20px;
+        }
+
+        .send-email-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .send-email-form input[type="text"],
+        .send-email-form textarea {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .send-email-form input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        /* Styles for the footer */
+        .app-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .app-footer p {
+            color: #777;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <h1>Email Message App</h1>
+        </div>
+
+        {{status}}
+        <form id="unblock" class="send-email-form" action="/send" method="post">
+            <label for="sender-name">Your Name:</label>
+            <input type="text" id="sender-name" value="{{user.username}}" name="senderName" required>
+
+            <label for="sender-email">Your Email:</label>
+            <input type="email" id="sender-email" value="{{user.email}}" name="senderEmail" required>
+
+            <label for="email-subject">Subject:</label>
+            <input type="text" id="email-subject"
+                value="Account Unblocked! Welcome Back to DigitalTech Ecommerce, {{user.username}}!" name="emailSubject"
+                required>
+
+            <label for="email-message">Message:</label>
+            <textarea id="email-message" name="emailMessage" rows="5" required>
+Dear {{user.username}},
+
+We are thrilled to inform you that your account has been successfully unblocked on DigitalTech Ecommerce! 🎉🔓
+
+We sincerely apologize for any inconvenience caused during the temporary suspension of your account. Our team has reviewed the situation, and we are happy to reinstate your access, allowing you to enjoy all the exciting features and benefits of our platform once again.
+
+At DigitalTech Ecommerce, we strive to create a seamless and secure shopping experience for our valued customers, and we appreciate your understanding while we resolved the issue.
+
+Now that your account is unblocked, you can:
+
+Browse our vast collection of high-quality electronic devices, gadgets, and accessories.
+Place orders effortlessly and track their progress with ease.
+Benefit from exclusive deals, discounts, and promotions tailored just for you.
+Explore our user-friendly interface, making your shopping experience enjoyable and efficient.
+Connect with our knowledgeable customer support team for any assistance you may require.
+We value your trust in DigitalTech Ecommerce and want to assure you that we are committed to maintaining the highest standards of security and customer satisfaction.
+
+Should you have any further questions or concerns, please don't hesitate to reach out to our dedicated support team at digitaltechecom99@gmail.com. We are here to assist you in any way we can.
+
+Thank you for choosing DigitalTech Ecommerce as your preferred online shopping destination. We look forward to serving you once again and providing you with an exceptional shopping experience.
+
+Happy shopping!
+
+Best regards,
+
+Manager,
+Customer Support Team
+DigitalTech Ecommerce
+
+            </textarea>
+
+            <input type="submit" value="Send Email">
+        </form>
+
+
+        <form id="block" class="send-email-form" action="/send" method="post">
+            <label for="sender-name">Your Name:</label>
+            <input type="text" id="sender-name" value="{{user.username}}" name="senderName" required>
+
+            <label for="sender-email">Your Email:</label>
+            <input type="email" id="sender-email" value="{{user.email}}" name="senderEmail" required>
+
+            <label for="email-subject">Subject:</label>
+            <input type="text" id="email-subject"
+                value="Account Blocked! Contact Support for Assistance, {{user.username}}!" name="emailSubject"
+                required>
+
+            <label for="email-message">Message:</label>
+            <textarea id="email-message" name="emailMessage" rows="5" required>
+                Dear {{user.username}},
+We regret to inform you that your account has been temporarily blocked on DigitalTech Ecommerce. We apologize for any inconvenience this may cause and understand the frustration it may create.
+
+Our team has identified certain irregularities or violations of our platform's terms and conditions associated with your account. In order to maintain a safe and secure shopping environment for all our users, we have taken the precautionary measure of suspending your access to DigitalTech Ecommerce.
+
+During this period, you will not be able to:
+
+Browse our collection of electronic devices, gadgets, and accessories.
+Place new orders or track existing ones.
+Take advantage of exclusive deals, discounts, and promotions.
+Access our user-friendly interface for shopping.
+Connect with our customer support team.
+We understand that you may have questions or concerns regarding this account suspension. Please feel free to contact our dedicated support team at digitaltechecom99@gmail.com for further clarification or assistance.
+
+We take the security of our platform seriously and are committed to resolving this issue as quickly as possible. Our team is currently reviewing the situation, and if it is determined that the suspension was in error or that any issues have been resolved, we will reinstate your account promptly.
+
+We apologize for any inconvenience caused and appreciate your understanding while we work towards resolving this matter. We value your trust in DigitalTech Ecommerce and will make every effort to ensure that your future experiences with us are positive and secure.
+
+Thank you for your patience and cooperation.
+
+Best regards,
+
+Manager,
+Customer Support Team
+DigitalTech Ecommerce
+ </textarea>
+
+            <input type="submit" value="Send Email">
+        </form>
+
+
+        <div class="app-footer">
+            <p>Email Message App - © 2023</p>
+        </div>
+    </div>
+
+    <script>
+        const unblock = document.getElementById("unblock");
+        const block = document.getElementById("block");
+        const status = "{{status}}";
+
+        if (status === "unblocked") {
+            unblock.style.display = "block";
+            block.style.display = "none";
+        } else {
+            block.style.display = "block";
+            unblock.style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

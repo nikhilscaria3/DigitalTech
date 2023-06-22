@@ -1,0 +1,344 @@
+<!-- views/index.hbs -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat App</title>
+    <!-- Add your CSS file(s) -->
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Add Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Reset default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body styles */
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Chat container */
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Chat header */
+        .chat-header {
+            padding: 15px;
+            background-color: #075e54;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .chat-header h1 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Chat messages */
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .message .sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .message .content {
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background-color: #f2f2f2;
+            display: inline-block;
+        }
+
+        .message .time {
+            font-size: 12px;
+            color: #777;
+            margin-left: 10px;
+        }
+
+        /* Chat input */
+        .chat-input {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #ccc;
+        }
+
+        .chat-input input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .chat-input button {
+            padding: 10px;
+            background-color: #075e54;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #054c3d;
+        }
+
+        /* Add animation styles */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message {
+            animation: fadeIn 0.3s ease-in-out;
+            animation-fill-mode: both;
+            animation-delay: 0.1s;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            .chat-container {
+                max-width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .chat-header {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .chat-header h1 {
+                margin-top: 10px;
+            }
+
+            .chat-messages {
+                max-height: 300px;
+            }
+
+            .chat-input {
+                padding: 10px;
+            }
+
+            .chat-input input[type="text"] {
+                padding: 8px;
+            }
+
+            .chat-input button {
+                padding: 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+       <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/image/Gold Luxury Initial Circle Logo (1).png" alt="Logo" width="30" height="24"
+                    class="d-inline-block align-text-top">
+                Digital Tech
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-lg-0">
+                    <li class="nav-item">
+                        <form id="search-form">
+                            <input type="text" id="search-input" placeholder="Search..">
+                            {{!-- <ul id="search-results" class="idresult" style=""></ul> --}}
+                        </form>
+                    </li>
+                </ul>
+
+                <ul id="search-results" class="idresult" style=""></ul>
+
+
+                {{#if userSession}}
+
+                {{else}}
+                <a href="/login" class="btn btn-primary">Login</a>
+                {{/if}}
+                <ul class="navbar-nav  mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item nav-link" href="/smartphone">Smartphone</a></li>
+                            <li><a class="dropdown-item nav-link" href="/laptop">Laptop</a></li>
+                            <li><a class="dropdown-item nav-link" href="/headphone">Headphones</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav  mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item nav-link" href="/cart">Cart</a></li>
+                            <li><a class="dropdown-item nav-link" href="/orderhistory">Order History</a></li>
+                            <li><a class="dropdown-item nav-link" href="/address">Address</a></li>
+                            <li><a class="dropdown-item nav-link" href="/wishlist">Wishlist</a></li>
+                            {{#if userSession}}
+                            <li>
+                                <a href="/logout" class="dropdown-item nav-link">logout</a>
+                            </li>
+                            {{else}}
+
+                            {{/if}}
+
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul><a href="/profile" class="profile">
+                        <img style="width:4rem" class="navimage" src="/image/Gold Luxury Initial Circle Logo (1).png">
+                    </a></ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chat App</h1>
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+        <div id="chat-messages" class="mb-4">
+            {{#each send}}
+            <div class="message">
+                <p><strong>{{../names}}</strong>: {{this.content}}</p>
+            </div>
+            {{/each}}
+        </div>
+
+        <form id="chat-form">
+            <div class="input-group mb-3">
+                <input type="text" id="sender-input" class="form-control" value="{{names}}" readonly>
+                <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </form>
+
+
+
+
+    </div>
+
+    <!-- Add your JavaScript file(s) -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/script.js"></script>
+    <script>
+        // script.js
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+
+            // Get references to HTML elements
+            const chatForm = document.getElementById('chat-form');
+            const senderInput = document.getElementById('sender-input');
+            const messageInput = document.getElementById('message-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Function to fetch and update chat messages
+            const updateChatMessages = async () => {
+                const response = await fetch('/api/messages/defaultReceiver');
+                const messages = await response.json();
+
+                // Clear chat messages
+                chatMessages.innerHTML = '';
+
+                // Add fetched messages to the chat messages area
+                messages.forEach((message) => {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+                    messageElement.innerHTML = `<p><strong>${message.sender}</strong>: ${message.content}</p>`;
+                    chatMessages.appendChild(messageElement);
+                });
+            };
+
+            // Fetch and update chat messages on page load
+            updateChatMessages();
+
+            // Handle sending messages
+            chatForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                // Get the sender, receiver, and content from the inputs
+                const sender = senderInput.value.trim();
+                const receiver = 'defaultReceiver'; // Modify this as needed
+                const content = messageInput.value.trim();
+                const userSession = '{{userSession}}'
+                // Check if sender and message content are not empty
+                if (sender && content) {
+                    // Emit the send_message event to the server
+                    socket.emit('send_message', { sender, receiver, content, userSession });
+
+                    // Clear the message input field
+                    messageInput.value = '';
+
+                    // Update chat messages after sending
+                    await updateChatMessages();
+                }
+            });
+
+            // Handle receiving messages
+            socket.on('receive_message', async (message) => {
+                // Add the received message to the chat messages area
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.innerHTML = `<p><strong>${message.sender}</strong>: ${message.content}</p>`;
+                chatMessages.appendChild(messageElement);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

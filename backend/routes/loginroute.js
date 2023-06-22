@@ -10,7 +10,7 @@ const adminController = require('../controllers/adminlogincontroller');
 // // Route for creating a new bird
 // router.post('/login', loginController.postUser);
 
-const{ getUser, postUser, resendOTP} = require('../controllers/logincontroller');
+const { getUser, postUser, PoststatusMail ,getEmail, postEmail, resendOTP, GetstatusMail } = require('../controllers/logincontroller');
 
 
 const setUserId = (req, res, next) => {
@@ -25,12 +25,18 @@ const setUserId = (req, res, next) => {
     next();
 };
 
+// GET home page
+router.get('/send-email', getEmail);
+
+// GET receiver page
+router.post('/send-email', postEmail);
 
 // GET route for rendering the login page
 router.get('/login', getUser);
 
 // POST route for handling user login and registration
 router.post('/login', postUser);
+
 router.post('/resend-otp', setUserId, resendOTP);
 
 router.get('/adminlogin', adminController.getAdmin)

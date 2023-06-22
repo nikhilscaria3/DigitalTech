@@ -141,6 +141,8 @@ app.use('/', smartphoneroutes);
 app.use('/', productroute);
 // app.use('/auth', authRoutes);
 
+
+
 app.get('/error', (req, res) => {
   res.render('error')
 });

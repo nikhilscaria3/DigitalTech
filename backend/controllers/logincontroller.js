@@ -121,7 +121,7 @@ exports.postUser = async (req, res) => {
 
       console.log("host", process.env.HOST);
       console.log("email", req.body.email);
-      
+
       // Send an email to the user with the OTP
       const transporter = nodemailer.createTransport({
         host: process.env.HOST,
@@ -133,14 +133,14 @@ exports.postUser = async (req, res) => {
           pass: process.env.SMTP_PASS,
         }
       });
-      
+
       const options = {
         from: process.env.SMTP_USER,
         to: user.email, // Use the email associated with the user session
         subject: "DigitalTech Ecommerce - Email Verification OTP",
         text: `Hello,\n\nThank you for signing up for DigitalTech Ecommerce. Your OTP (One-Time Password) for email verification is: ${otp}. Please enter this OTP on the verification page to complete your registration.\n\nIf you did not sign up for DigitalTech Ecommerce, please ignore this email.\n\nBest regards,\nThe DigitalTech Ecommerce Team`,
       };
-      
+
       transporter.sendMail(options, (err, info) => {
         if (err) {
           console.log("Email not sent");
@@ -151,8 +151,8 @@ exports.postUser = async (req, res) => {
           return res.status(200).json({ message: "Email sent" });
         }
       });
-      
-      
+
+
       req.session.loggedIn = false; // Set loggedIn to false initially
       req.session.otp = otp;
       req.session.username = user.username;
@@ -198,15 +198,15 @@ exports.resendOTP = async (req, res) => {
         pass: process.env.SMTP_PASS,
       }
     });
-    
+
     const options = {
       from: process.env.SMTP_USER,
       to: user.email, // Use the email associated with the user session
       subject: "DigitalTech Ecommerce - Email Verification OTP",
       text: `Hello,\n\nThank you for signing up for DigitalTech Ecommerce. Your OTP (One-Time Password) for email verification is: ${otp}. Please enter this OTP on the verification page to complete your registration.\n\nIf you did not sign up for DigitalTech Ecommerce, please ignore this email.\n\nBest regards,\nThe DigitalTech Ecommerce Team`,
     };
-    
-    
+
+
     transporter.sendMail(options, (err, info) => {
       if (err) {
         console.log("Email not sent");
@@ -217,7 +217,7 @@ exports.resendOTP = async (req, res) => {
         return res.status(200).json({ message: "Email sent" });
       }
     });
-    
+
 
     req.session.otp = otp;
     console.log(otp);
@@ -227,6 +227,62 @@ exports.resendOTP = async (req, res) => {
     return res.status(500).send('Server Error');
   }
 };
+
+
+
+exports.getEmail = async (req, res) => {
+  try {
+    return res.render('emailmessage');
+  } catch (err) {
+    console.error(err);
+    return res.render('error');
+  }
+};
+
+exports.postEmail = async (req, res) => {
+  try {
+    const { senderEmail, emailSubject, emailMessage } = req.body;
+
+    // Create a transporter for sending emails
+
+    console.log(process.env.HOST);
+    const transporter = nodemailer.createTransport({
+      host: process.env.HOST,
+      service: process.env.SERVICE,
+      port: Number(process.env.EMAIL_PORT),
+      secure: Boolean(process.env.SECURE),
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      }
+    });
+
+    // Compose the email options
+    const options = {
+      from: process.env.SMTP_USER,
+      to: senderEmail,
+      subject: emailSubject,
+      text: emailMessage,
+    };
+
+    // Send the email
+    transporter.sendMail(options, (err, info) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Error sending email" });
+      } else {
+        console.log("Email sent successfully");
+        return res.redirect('/send-email');
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send('Server Error');
+  }
+};
+
+
+
 
 
 exports.getUpdate = (req, res) => {

@@ -4,6 +4,7 @@ const homeController = require('../controllers/homecontroller');
 const productController = require('../controllers/productcontroller');
 const { getProfile, postProfile } = require('../controllers/profilecontroller');
 
+
 const goToLoginIfNotAuth = (req, res, next) => {
   if (req.session.loggedIn) {
     next()
@@ -42,6 +43,7 @@ const setUserId = (req, res, next) => {
   console.log("res.locals.userSession:", res.locals.userSession);
   next();
 };
+
 
 
 
