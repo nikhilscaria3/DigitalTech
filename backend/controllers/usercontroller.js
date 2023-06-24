@@ -2,6 +2,11 @@ const { query } = require('express');
 const { User } = require('../models/usermodel');
 const nodemailer = require('nodemailer');
 
+const fs = require('fs');
+const path = require('path')
+// Function to generate a random OTP
+
+
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -23,7 +28,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.GetstatusMail = async (req, res) => {
   try {
-    const { edit_id, status ,email} = req.query;
+    const { edit_id, status, email } = req.query;
     console.log(edit_id);
     console.log(status);
 
@@ -54,14 +59,35 @@ exports.GetstatusMail = async (req, res) => {
   }
 };
 
-
 exports.PoststatusMail = async (req, res) => {
   try {
-    const { senderEmail, emailSubject, emailMessage, } = req.body;
+    const id = req.params.id
+    const status = req.params.status
+    if (!id) {
+      return res.status(400).json({ message: "Missing edit_id parameter" });
+    }
 
-    // Create a transporter for sending emails
+    const user = await User.findById(id);
 
-    console.log(process.env.HOST);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const { senderEmail, emailSubject, emailMessage } = req.body;
+
+    let filePath;
+
+    if (status === "blocked") {
+      filePath = path.join(__dirname, '../../frontend/views/blockedMessage.hbs');
+    } else {
+      filePath = path.join(__dirname, '../../frontend/views/unblockedMessage.hbs');
+    }
+
+    const username = user.username;
+
+    const htmlContent = fs.readFileSync(filePath, 'utf-8');
+    const htmlEmail = htmlContent.replace('{{username}}', username);
+
     const transporter = nodemailer.createTransport({
       host: process.env.HOST,
       service: process.env.SERVICE,
@@ -73,15 +99,13 @@ exports.PoststatusMail = async (req, res) => {
       }
     });
 
-    // Compose the email options
     const options = {
       from: process.env.SMTP_USER,
       to: senderEmail,
       subject: emailSubject,
-      text: emailMessage,
+      html: htmlEmail,
     };
 
-    // Send the email
     transporter.sendMail(options, (err, info) => {
       if (err) {
         console.error(err);

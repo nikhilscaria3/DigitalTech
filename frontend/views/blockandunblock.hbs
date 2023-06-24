@@ -254,7 +254,7 @@
         </div>
 
         {{status}}
-        <form id="unblock" class="send-email-form" action="/send" method="post">
+        <form id="unblock" class="send-email-form" action="/send/{{user._id}}/{{status}}" method="post">
             <label for="sender-name">Your Name:</label>
             <input type="text" id="sender-name" value="{{user.username}}" name="senderName" required>
 
@@ -303,7 +303,7 @@ DigitalTech Ecommerce
         </form>
 
 
-        <form id="block" class="send-email-form" action="/send" method="post">
+        <form id="block" class="send-email-form" action="/send/{{user._id}}/{{status}}" method="post">
             <label for="sender-name">Your Name:</label>
             <input type="text" id="sender-name" value="{{user.username}}" name="senderName" required>
 

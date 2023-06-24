@@ -14,6 +14,6 @@ const goToLoginIfNotAuth1 = (req, res, next) => {
 
 router.get('/users', goToLoginIfNotAuth1, userController.getAllUsers);
 router.get('/send', userController.GetstatusMail);
-router.post('/send', userController.PoststatusMail);
+router.post('/send/:id/:status', userController.PoststatusMail);
 
 module.exports = router;

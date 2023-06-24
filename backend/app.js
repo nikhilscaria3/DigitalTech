@@ -6,6 +6,7 @@ const hbs = require('hbs');
 const multer = require('multer');
 const nocache = require('nocache');
 const svgCaptcha = require('svg-captcha');
+const bodyParser = require('body-parser');
 const cacheControl = require('cache-control');
 const connectMongoDbSession = require('connect-mongodb-session');
 const sharp = require('sharp');
@@ -111,7 +112,8 @@ app.use(express.static(path.join(__dirname, '../frontend/views')));
 app.use(express.static(path.join(__dirname, '../frontend/views/html')));
 
 
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // Parse request bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

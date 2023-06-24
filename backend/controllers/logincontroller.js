@@ -1,81 +1,19 @@
-// const { User } = require('../models/usermodel');
-// // assuming the collection name is "users"
-// const bcrypt = require('bcrypt');
-
-// exports.getUser = async (req, res) => {
-//     if (req.session.loggedIn) {
-//         res.redirect('/homepage')
-//     }
-//     try {
-//         const user = await User.find({});
-//         let message = req.session.message || null;
-//         req.session.message = null;
-//         res.render('login', { user, message: null });
-//     } catch (err) {
-//         console.log(err);
-//         res.render('error');
-//     }
-// };
-
-
-// exports.postUser = async (req, res) => {
-//     const { username, password, email } = req.body;
-//     const user = new User({
-//         username,
-//         password,
-//         email
-//     });
-
-//     try {
-//         const existingEmail = await User.findOne({ email });
-//         const existingUser = await User.findOne({ username });
-
-//         const otp = Math.floor(Math.random() * 1000000);
-
-//         // Send an email to the user with the OTP
-//         const mailOptions = {
-//           from: 'rosalyn.stehr@ethereal.email',
-//           to: req.body.email,
-//           subject: 'Email verification OTP',
-//           text: `Your OTP is ${otp}`,
-//         };
-
-//         const transporter = nodemailer.createTransport({
-//           host: 'smtp.ethereal.email',
-//           port: 587,
-//           auth: {
-//               user: 'rosalyn.stehr@ethereal.email',
-//               pass: 'm8Sq31SRTQ1TmBYCxn'
-//           }
-//       });
-//         transporter.sendMail(mailOptions, async (err, info) => {
-//           if (err) {
-//             console.log(err);
-//             return res.status(500).send('Error sending email');
-//           }
-//         })
-
-//         if (existingEmail && existingUser && (await bcrypt.compare(password, existingUser.password))) {
-//             req.session.regularUser = true;
-//             req.session.user = { name: username };
-//             await user.save();
-//             res.redirect('/homepage');
-//         } else {
-//             req.session.message = 'Invalid Password or Username';
-//             res.redirect('/login');
-//         }
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).send('Server Error');
-//     }
-// };
-
 
 const { User } = require('../models/usermodel');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 
-
+const fs = require('fs');
+const path = require('path')
+// Function to generate a random OTP
+const generateOTP = () => {
+  const digits = '0123456789';
+  let otp = '';
+  for (let i = 0; i < 6; i++) {
+    otp += digits[Math.floor(Math.random() * 10)];
+  }
+  return otp;
+};
 
 // const destroyOTPAfterTwoMinutes = (req) => {
 //   setTimeout(() => {
@@ -117,7 +55,15 @@ exports.postUser = async (req, res) => {
         return res.redirect('/login');
       }
 
-      const otp = Math.floor(Math.random() * 1000000);
+      const otp = generateOTP();
+      const filePath = path.join(__dirname, '../../frontend/views/otpmessage.hbs');
+
+      console.log(filePath);
+
+      const htmlContent = fs.readFileSync(filePath, 'utf-8');
+      const htmlEmail = htmlContent.replace('{{otp}}', otp);
+
+
 
       console.log("host", process.env.HOST);
       console.log("email", req.body.email);
@@ -138,7 +84,7 @@ exports.postUser = async (req, res) => {
         from: process.env.SMTP_USER,
         to: user.email, // Use the email associated with the user session
         subject: "DigitalTech Ecommerce - Email Verification OTP",
-        text: `Hello,\n\nThank you for signing up for DigitalTech Ecommerce. Your OTP (One-Time Password) for email verification is: ${otp}. Please enter this OTP on the verification page to complete your registration.\n\nIf you did not sign up for DigitalTech Ecommerce, please ignore this email.\n\nBest regards,\nThe DigitalTech Ecommerce Team`,
+        html: htmlEmail
       };
 
       transporter.sendMail(options, (err, info) => {
@@ -183,10 +129,14 @@ exports.resendOTP = async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    // Generate a new OTP
-    const otp = Math.floor(Math.random() * 1000000);
+    const otp = generateOTP();
+    const filePath = path.join(__dirname, '../../frontend/views/otpmessage.hbs');
 
-    // Update the user's OTP in the database
+    console.log(filePath);
+
+    const htmlContent = fs.readFileSync(filePath, 'utf-8');
+    const htmlEmail = htmlContent.replace('{{otp}}', otp);
+
 
     const transporter = nodemailer.createTransport({
       host: process.env.HOST,
@@ -203,7 +153,7 @@ exports.resendOTP = async (req, res) => {
       from: process.env.SMTP_USER,
       to: user.email, // Use the email associated with the user session
       subject: "DigitalTech Ecommerce - Email Verification OTP",
-      text: `Hello,\n\nThank you for signing up for DigitalTech Ecommerce. Your OTP (One-Time Password) for email verification is: ${otp}. Please enter this OTP on the verification page to complete your registration.\n\nIf you did not sign up for DigitalTech Ecommerce, please ignore this email.\n\nBest regards,\nThe DigitalTech Ecommerce Team`,
+      html: htmlEmail
     };
 
 
