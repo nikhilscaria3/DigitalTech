@@ -253,44 +253,40 @@
 
 
 
-	<script>
-		function applyFilters() {
-			// Get the selected sort option
-			var sortBy = document.getElementById("sortBy").value;
+<script>
+  function applyFilters() {
+    // Get the selected sort option
+    var sortBy = document.getElementById("sortBy").value;
 
-			// Get the selected category filter
+    // Get the selected brand filter
+    var brandFilter = document.getElementById("brandFilter").value;
 
-			// Get the selected brand filter
-			var brandFilter = document.getElementById("brandFilter").value;
+    // Construct the URL with the selected filters
+    var baseUrl = window.location.origin; // Get the base URL dynamically
+    var url = baseUrl + "/smartphone?";
+    url += "sortBy=" + encodeURIComponent(sortBy);
+    url += "&brandFilter=" + encodeURIComponent(brandFilter);
 
-			// Construct the URL with the selected filters
-			var url = "http://localhost:3001/smartphone?";
-			url += "sortBy=" + encodeURIComponent(sortBy);
-			url += "&brandFilter=" + encodeURIComponent(brandFilter);
+    // Redirect to the URL with the filters applied
+    window.location.href = url;
+  }
 
-			// Redirect to the URL with the filters applied
-			window.location.href = url;
-		}
+  function resetFilters() {
+    // Refresh the page and load the default URL
+    window.location.href = window.location.origin + "/smartphone";
+  }
 
-		function resetFilters() {
-			// Reset the selected options to their initial values
-			document.getElementById("sortBy").value = "";
-			document.getElementById("brandFilter").value = "";
+  // Restore the selected options after page reload
+  window.addEventListener("DOMContentLoaded", function () {
+    var urlParams = new URLSearchParams(window.location.search);
+    var sortBy = urlParams.get("sortBy");
+    var brandFilter = urlParams.get("brandFilter");
 
-			// Refresh the page and load the default URL
-			window.location.href = "http://localhost:3001/smartphone";
-		}
+    document.getElementById("sortBy").value = sortBy || "";
+    document.getElementById("brandFilter").value = brandFilter || "";
+  });
+</script>
 
-		// Restore the selected options after page reload
-		window.addEventListener("DOMContentLoaded", function () {
-			var urlParams = new URLSearchParams(window.location.search);
-			var sortBy = urlParams.get("sortBy");
-			var brandFilter = urlParams.get("brandFilter");
-
-			document.getElementById("sortBy").value = sortBy || "";
-			document.getElementById("brandFilter").value = brandFilter || "";
-		});
-	</script>
 
 	<!-- CONTENT -->
 	<section id="content">
