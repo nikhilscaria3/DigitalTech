@@ -252,7 +252,6 @@
 	<!-- SIDEBAR -->
 
 
-
 <script>
   function applyFilters() {
     // Get the selected sort option
@@ -262,13 +261,12 @@
     var brandFilter = document.getElementById("brandFilter").value;
 
     // Construct the URL with the selected filters
-    var baseUrl = window.location.origin; // Get the base URL dynamically
-    var url = baseUrl + "/smartphone?";
-    url += "sortBy=" + encodeURIComponent(sortBy);
-    url += "&brandFilter=" + encodeURIComponent(brandFilter);
+    var currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set("sortBy", sortBy);
+    currentUrl.searchParams.set("brandFilter", brandFilter);
 
     // Redirect to the URL with the filters applied
-    window.location.href = url;
+    window.location.href = currentUrl.href;
   }
 
   function resetFilters() {
