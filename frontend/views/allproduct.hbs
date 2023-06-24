@@ -36,23 +36,24 @@
             object-fit: contain;
 
         }
+
         /* Add glowing effect to stars */
-		.glowing {
-			color: #ffc107;
-			/* Set the desired glowing color */
-			animation: glowingStars 2s infinite alternate;
-			font-weight: 800;
-		}
+        .glowing {
+            color: #ffc107;
+            /* Set the desired glowing color */
+            animation: glowingStars 2s infinite alternate;
+            font-weight: 800;
+        }
 
-		@keyframes glowingStars {
-			from {
-				opacity: 1;
-			}
+        @keyframes glowingStars {
+            from {
+                opacity: 1;
+            }
 
-			to {
-				opacity: 0.5;
-			}
-		}
+            to {
+                opacity: 0.5;
+            }
+        }
     </style>
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -77,19 +78,19 @@
                         </form>
                     </li>
                 </ul>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Category
-                            </a>
-                            <ul class="dropdown-menu p-3">
-                                <li><a class="dropdown-item nav-link" href="/smartphone">Smartphone</a></li>
-                                <li><a class="dropdown-item nav-link" href="/laptop">Laptop</a></li>
-                                <li><a class="dropdown-item nav-link" href="/headphone">Headphones</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Category
+                        </a>
+                        <ul class="dropdown-menu p-3">
+                            <li><a class="dropdown-item nav-link" href="/smartphone">Smartphone</a></li>
+                            <li><a class="dropdown-item nav-link" href="/laptop">Laptop</a></li>
+                            <li><a class="dropdown-item nav-link" href="/headphone">Headphones</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="navbar-nav  mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -216,7 +217,8 @@
             var brandFilter = document.getElementById("brandFilter").value;
 
             // Construct the URL with the selected filters
-            var url = "http://localhost:3001/allproduct?";
+            var baseUrl = window.location.origin; // Get the base URL dynamically
+            var url = baseUrl + "/allproduct?";
             url += "sortBy=" + encodeURIComponent(sortBy);
             url += "&categoryFilter=" + encodeURIComponent(categoryFilter);
             url += "&brandFilter=" + encodeURIComponent(brandFilter);
@@ -232,7 +234,7 @@
             document.getElementById("brandFilter").value = "";
 
             // Refresh the page and load the default URL
-            window.location.href = "http://localhost:3001/allproduct";
+            window.location.href = window.location.origin + "/allproduct";
         }
 
         // Restore the selected options after page reload
@@ -247,7 +249,6 @@
             document.getElementById("brandFilter").value = brandFilter || "";
         });
     </script>
-
 
 
 
@@ -314,29 +315,30 @@
                                 </h6>
 
                                 {{!-- <h4 class="product-price">Rs.{{this.saleprice}}</h4> --}}
-                             		<div class="text-warning mb-1 me-2">
-									<i class="far fa-star"></i>
-									<i class="far fa-star"></i>
-									<i class="far fa-star"></i>
-									<i class="far fa-star"></i>
-									<i class="far fa-star"></i>
-									<span class="ms-1" style="width: 37rem; display: flex;">
-										<p>{{averageRating}}<i class="fas fa-star"></i> {{reviewCount}} Review &
-											{{reviewCount}} rating</p>
-									</span>
-								</div>
+                                <div class="text-warning mb-1 me-2">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="ms-1" style="width: 37rem; display: flex;">
+                                        <p>{{averageRating}}<i class="fas fa-star"></i> {{reviewCount}} Review &
+                                            {{reviewCount}} rating</p>
+                                    </span>
+                                </div>
 
 
-								<script>
-									const stars = document.querySelectorAll('.fa-star');
+                                <script>
+                                    const stars = document.querySelectorAll('.fa-star');
 
-									stars.forEach((star, index) => {
-										if (index < {{ averageRating }}) {
-										star.classList.add('glowing');
-									}
+                                    stars.forEach((star, index) => {
+                                        if (index < {{ averageRating }
+                                    }) {
+                                        star.classList.add('glowing');
+                                    }
 									});
 
-								</script>
+                                </script>
 
                                 {{!-- <ul class="list-unstyled" style=" line-height: 2rem;">
                                     {{#each highlight2}}
