@@ -62,9 +62,9 @@ exports.getUpdate = (req, res) => {
       errors.push({ msg: 'Passwords do not match' });
     }
   
-    if (newpassword.length() < 6) {
-      errors.push({ msg: 'Password should be at least 6 characters long' });
-    }
+    // if (newpassword.length() < 6) {
+    //   errors.push({ msg: 'Password should be at least 6 characters long' });
+    // }
   
     if (errors.length > 0) {
       return res.render('updatepassword2', {

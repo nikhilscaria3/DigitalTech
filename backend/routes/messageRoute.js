@@ -10,6 +10,13 @@ const goToLoginIfNotAuth = (req, res, next) => {
     }
 };
 
+const goToLoginIfNotAuth1 = (req, res, next) => {
+    if (req.session.adminloggedIn) {
+        next()
+    } else {
+        res.redirect("/adminlogin")
+    }
+};
 
 const setUserId = (req, res, next) => {
     if (req.session.loggedIn && req.session.usersession) {
@@ -27,7 +34,7 @@ const setUserId = (req, res, next) => {
 router.get('/chat', setUserId,goToLoginIfNotAuth, messageController.getSendPage);
 
 // GET receiver page
-router.get('/receive', setUserId,goToLoginIfNotAuth, messageController.getReceiverPage);
+router.get('/receive', setUserId,goToLoginIfNotAuth1, messageController.getReceiverPage);
 
 // GET messages for a specific receiver
 router.get('/api/messages/:receiver', setUserId, messageController.getMessagesForReceiver);

@@ -292,6 +292,7 @@ exports.getUpdate = (req, res) => {
   res.render('updatepassword', { message });
 };
 
+
 exports.postUpdate = async (req, res) => {
   const { email, newpassword, confirmpassword } = req.body;
   let errors = [];
