@@ -12,6 +12,13 @@ const goToLoginIfNotAuth = (req, res, next) => {
     }
 };
 
+const goToLoginIfNotAuth1 = (req, res, next) => {
+    if (req.session.adminloggedIn) {
+        next()
+    } else {
+        res.redirect("/adminlogin")
+    }
+};
 const multer = require('multer');
 
 const path = require('path');
@@ -74,8 +81,8 @@ router.post('/payment/:id/order-success ', productController.getOrderSuccess)
 
 router.get('/coupon', goToLoginIfNotAuth, setUserId, couponController.getCoupon)
 router.post('/coupon/:id', goToLoginIfNotAuth, setUserId, couponController.postCoupon)
-router.get('/couponadmin', goToLoginIfNotAuth, setUserId, couponController.getCouponAdmin)
-router.post('/couponadd', upload.single('image'), goToLoginIfNotAuth, setUserId, couponController.saveCoupon)
+router.get('/couponadmin', goToLoginIfNotAuth1, setUserId, couponController.getCouponAdmin)
+router.post('/couponadd', upload.single('image'), goToLoginIfNotAuth1, setUserId, couponController.saveCoupon)
 
 
 
