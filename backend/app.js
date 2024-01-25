@@ -117,7 +117,14 @@ app.use(bodyParser.json());
 // Parse request bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors({
 
+  origin: ["https://digital-tech-nlri.vercel.app"],
+  methods: ["POST", "GET"],
+  credentials: true
+
+}
+))
 // Routes
 // const orderhistory = require('./routes/orderhistoryroute')
 const forget = require('./routes/forgetpassword.js');
