@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const cacheControl = require('cache-control');
 const connectMongoDbSession = require('connect-mongodb-session');
 const sharp = require('sharp');
-const connectDatabase = require('../backend/config/database.js');
+const connectDatabase = require('./config/database.js');
 const dotenv = require('dotenv');
 dotenv.config({path:path.join(__dirname,"config/config.env")});
 
@@ -121,19 +121,19 @@ app.use(express.json());
 // Routes
 // const orderhistory = require('./routes/orderhistoryroute')
 const forget = require('./routes/forgetpassword.js');
-const login = require('./routes/loginroute');
-const register = require('./routes/registerroute');
-const homepage = require('./routes/homepageroute');
-const productadd = require('./routes/productaddroute');
-const admin = require('./routes/adminroute');
-const productedit = require('./routes/producteditroute');
-const Product = require('./routes/productroute');
-const userRoutes = require('./routes/userroutes');
-const categoryroutes = require('./routes/categoryroute');
-const laptoproutes = require('./routes/laptoproute');
-const smartphoneroutes = require('./routes/smartphoneroute');
-const productroute = require('./routes/productpageroute');
-const salesRoutes = require('./routes/saleroute');
+const login = require('./routes/loginroute.js');
+const register = require('./routes/registerroute.js');
+const homepage = require('./routes/homepageroute.js');
+const productadd = require('./routes/productaddroute.js');
+const admin = require('./routes/adminroute.js');
+const productedit = require('./routes/producteditroute.js');
+const Product = require('./routes/productroute.js');
+const userRoutes = require('./routes/userroutes.js');
+const categoryroutes = require('./routes/categoryroute.js');
+const laptoproutes = require('./routes/laptoproute.js');
+const smartphoneroutes = require('./routes/smartphoneroute.js');
+const productroute = require('./routes/productpageroute.js');
+const salesRoutes = require('./routes/saleroute.js');
 const messageRoutes = require('./routes/messageRoute.js');
 const messageController = require('./controllers/chatController.js')
 
@@ -356,7 +356,7 @@ app.post('/crop/:id', async (req, res) => {
 
 
 
-const { Product: ProductModel } = require('./models/productmodel');
+const { Product: ProductModel } = require('./models/productmodel.js');
 
 app.get('/search', async (req, res) => {
   const searchTerm = req.query.term;
