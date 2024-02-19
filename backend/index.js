@@ -172,6 +172,8 @@ app.get('/error', (req, res) => {
   res.render('error')
 });
 
+// In your backend/index.js or wherever your route handlers are defined
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 // Generate and serve CAPTCHA
 app.get('/captcha', (req, res) => {
