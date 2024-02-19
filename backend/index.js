@@ -195,9 +195,7 @@ app.get('/signout', nocache(), (req, res) => {
 });
 
 
-app.get('/', (req, res) => {
-  res.send("hello")
-});
+
 
 // app.get('/productpage/:id', async (req, res) => {
 //   try {
